@@ -65,7 +65,7 @@ public class Server {
 	private static LruCache<String,String> lrucache;
 	private static ArrayList<String> PC_MAC ;
 	private static String urlPath;
-	
+	private static ArrayList<String> somedata;
 	
 	private static KafkaProducer kafkaProducer;
 	/***
@@ -83,6 +83,7 @@ public class Server {
 	}
 	
 	public static void begin(String url){
+		
 		urlPath = url;
 		lrucache = new LruCache<String, String>(100);
 		kafkaProducer = new KafkaProducer();
@@ -90,8 +91,9 @@ public class Server {
 		PC_MAC.add("50:68:0a:4a:1c:55");
 		
 		try {
-			InitReader();
+		//	InitReader();
 			InitDaq();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,7 +123,8 @@ public class Server {
 		serverSocket = new ServerSocket(5000);
 		
 		System.out.println("InitDaq");
-		
+
+		somedata = new ArrayList<String>();
 		while (true) {
 			
 			Socket socket = serverSocket.accept();
@@ -129,14 +132,26 @@ public class Server {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
 			String line = in.readLine();
-			
 			while (line != null) {
 				
 				if (line.length() >= 4 && line.startsWith("data")) {
 					
 				//	Change2WifiDate(line);
-					System.out.println(line.substring(5,line.length()));
-					kafkaProducer.Send("wifidata", line.substring(5,line.length()));
+				//	System.out.println(line.substring(5,line.length()));
+				//	kafkaProducer.Send("wifidata", line.substring(5,line.length()));
+				//	System.out.println("Size"+somedata.size());
+					if(somedata.size() > 2){
+						kafkaProducer.Send("wifiData", somedata);
+						somedata = new ArrayList<String>();
+						System.out.println("send");
+						somedata.add(line.substring(5,line.length()));
+					}else{
+						somedata.add(line.substring(5,line.length()));
+
+					//	System.out.println("add");
+					}
+					
+				
 				}
 				
 				line = in.readLine();

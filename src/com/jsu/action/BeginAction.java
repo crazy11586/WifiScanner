@@ -27,8 +27,8 @@ public class BeginAction extends ActionSupport{
 		String str = ServletActionContext.getServletContext().getRealPath("/");
 		path = str+"WEB-INF\\mac_search.xml";
 		
-		DaqThread t1 = new DaqThread();
-		t1.start();
+//		DaqThread t1 = new DaqThread();
+//		t1.start();
 
 		
 		return SUCCESS;
