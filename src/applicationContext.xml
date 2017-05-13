@@ -7,12 +7,6 @@
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 
-	<!-- 测试 -->
-	<bean id="TUser" class="com.jsu.po.Users">
-		<property name="user_id" value="20"></property>
-		<property name="user_name" value="张三"></property>
-	</bean>
-
 
 	<!-- 定义Action -->
 	<bean id="loginAction" class="com.jsu.action.LoginAction" scope="prototype">

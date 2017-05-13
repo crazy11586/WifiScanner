@@ -23,21 +23,11 @@ public class LoginAction extends ActionSupport {
 	public String execute(){
 
 		
-		if (!username.equals("admin")) {
-			super.addFieldError("username", "用户名错误！");
-			return ERROR;
-		}
-
-		if (!password.equals("123456")) {
-			super.addFieldError("password", "密码错误！");
-			return ERROR;
-
-		}
 
 //		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-//		      //从容器 接管Bean
+//		      //浠庡鍣� 鎺ョBean
 //		Users user = (Users) ac.getBean("TUser");
-//		      //输出欢迎信息
+//		      //杈撳嚭娆㈣繋淇℃伅
 //		
 //		System.out.println( "Hello:" + user.getUser_name() + ";u is in " + user.getUser_id() + " ;");
 		
@@ -47,12 +37,12 @@ public class LoginAction extends ActionSupport {
 	public void validate() {
 		
 		if (username == null || username.length() == 0) {
-			super.addActionError("用户名不能为空");
+			super.addActionError("鐢ㄦ埛鍚嶄笉鑳戒负绌�");
 
 		}
 		
 		if (password == null || password.length() == 0) {
-			super.addActionError("密码不能为空");
+			super.addActionError("瀵嗙爜涓嶈兘涓虹┖");
 
 		}
 		//sadas

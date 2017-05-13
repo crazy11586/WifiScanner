@@ -15,7 +15,15 @@
         <action name="begin" class="com.jsu.action.BeginAction">
             <result name="success" type="redirect">/index.jsp</result>
         </action>
-        
     </package>
     
+    <package name="json" extends="json-default" namespace="/">  
+    
+        <action name="UserTestAction" class="com.jsu.action.UserTestAction" method="Test">  
+                    <result name="success" type="json">  
+                        <param name="root">list</param>  
+                    </result>  
+            </action>  
+        </package> 
+        
 </struts>
