@@ -67,4 +67,22 @@
 	</bean>
 	
 	
+	<bean name="deviceDao" class="com.jsu.dao.IDeviceDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<bean name="deviceService" class="com.jsu.Iservice.DeviceService">
+		<property name="IDeviceDaoImpl" ref="deviceDao"></property>
+	</bean>
+	
+	
+	<bean name="storeDao" class="com.jsu.dao.IStoreDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<bean name="storeService" class="com.jsu.Iservice.StoreService">
+		<property name="IStoreDaoImpl" ref="storeDao"></property>
+	</bean>
 </beans> 

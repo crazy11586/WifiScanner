@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+      
+<hibernate-mapping package="com.jsu.po">
+
+	<class name="Device" table="device" catalog="wifi">
+
+		<id name="Device_id" column="Device_id" type="int">
+			
+		</id>
+
+		<property name="Device_name" column="Device_name" type="string"
+			length="255" unique="false" />
+		
+		<property name="Store_id" column="Store_id" type="int">
+			
+		</property>	
+	</class>
+	
+</hibernate-mapping>
