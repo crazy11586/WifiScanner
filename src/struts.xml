@@ -19,7 +19,7 @@
     
     <package name="json" extends="json-default" namespace="/">  
     
-        <action name="UserTestAction" class="com.jsu.action.UserTestAction" method="Test">  
+        <action name="GetDataAction" class="com.jsu.action.GetDataAction" method="Test">  
                     <result name="success" type="json">  
                         <param name="root">list</param>  
                     </result>  

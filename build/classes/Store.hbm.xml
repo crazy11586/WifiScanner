@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+      
+<hibernate-mapping package="com.jsu.po">
+
+	<class name="Store" table="store" catalog="wifi">
+
+		<id name="Store_id" column="Store_id" type="int">
+			
+		</id>
+
+		<property name="Store_name" column="Store_name" type="string"
+			length="255" unique="false" />
+		
+		<property name="Store_addr" column="Store_addr" type="string" length="255" unique="false" 
+		>
+			
+		</property>	
+	</class>
+	
+</hibernate-mapping>

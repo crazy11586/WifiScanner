@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+      
+<hibernate-mapping package="com.jsu.po">
+
+	<class name="Customer" table="customer" catalog="wifi">
+
+		<id name="Customer_mac" column="Customer_mac" type="string" length="255" >
+			
+		</id>
+
+		<property name="Customer_flim" column="Customer_flim" type="string"
+			length="255" unique="false" />
+		
+		<property name="Enter_time" column="Enter_time" type="int">
+			
+		</property>	
+		
+		<property name="Status" column="Status" type="int">
+			
+		</property>	
+		<property name="Recent_entertime" column="Recent_entertime" type="int">
+			
+		</property>	
+		
+		<property name="Enter_count" column="Enter_count" type="int">
+			
+		</property>
+		<property name="AllTimes" column="AllTimes" type="int">
+			
+		</property>		
+	</class>
+	
+</hibernate-mapping>

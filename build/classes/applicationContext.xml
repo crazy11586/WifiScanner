@@ -85,4 +85,23 @@
 	<bean name="storeService" class="com.jsu.Iservice.StoreService">
 		<property name="IStoreDaoImpl" ref="storeDao"></property>
 	</bean>
+	
+	<bean name="customerDao" class="com.jsu.dao.ICustomerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<bean name="customerService" class="com.jsu.Iservice.CustomerService">
+		<property name="ICustomerDaoImpl" ref="customerDao"></property>
+	</bean>
+	
+	
+	<bean name="customerpositionDao" class="com.jsu.dao.ICustomerPositionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<bean name="customerpositionService" class="com.jsu.Iservice.CustomerPositionService">
+		<property name="ICustomerPositionDaoImpl" ref="customerpositionDao"></property>
+	</bean>
 </beans> 

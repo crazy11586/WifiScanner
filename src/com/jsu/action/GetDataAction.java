@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.jsu.Iservice.CustomerPositionService;
+import com.jsu.Iservice.CustomerService;
 import com.jsu.Iservice.DeviceService;
 import com.jsu.Iservice.StoreService;
 import com.jsu.Iservice.UserService;
@@ -17,11 +19,11 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import scala.util.Random;
 
-public class UserTestAction extends ActionSupport {  
+public class GetDataAction extends ActionSupport {  
     
     private List list;  
     private String action;
-      
+    ApplicationContext context;
     public String getAction() {
 		return action;
 	}
@@ -43,44 +45,48 @@ public class UserTestAction extends ActionSupport {
     
 
     public String Test(){  
-//        Users1 users=new Users1();  
-//        users.setId(11);  
-//        users.setName("张三丰");  
-//        users.setUsername("张三");  
-//        users.setPassword("123456");  
-//          
-//        list=new ArrayList();  
-//        list.add(users);  
-
-    	if(action.equals("getstore")){
+    	
+    	context = new ClassPathXmlApplicationContext("/applicationContext.xml"); 
+    	if(action.equals("getStore")){
     		GetStore();
-    	}else if(action.equals("getdevice")){
+    	}else if(action.equals("getDevice")){
     		GetDevice();
+    	}else if(action.equals("getCustomer")){
+    		GetCustomer();
+    	}else if(action.equals("getCustomerPosition")){
+    		GetCustomerPosition();
+    	}else{
+    		list.add("The args is Error !!! ");
     	}
-    	
-    	
-    	
         return SUCCESS;  
     }  
     
     private void GetDevice() {
 		// TODO Auto-generated method stub
-    	ApplicationContext context= new ClassPathXmlApplicationContext("/applicationContext.xml");  
+    	 
     	DeviceService service =(DeviceService) context.getBean("deviceService");
     	list = service.getAllDevice();
 	}
 
 	private void GetStore() {
 		// TODO Auto-generated method stub
-		ApplicationContext context= new ClassPathXmlApplicationContext("/applicationContext.xml");  
+		
     	StoreService service =(StoreService) context.getBean("storeService");
 	    
     	list = service.getAllStore();
+    	
 	}
 
-	@org.junit.Test
-	public void testName() throws Exception {
-    	System.out.println(Test());
+	private void GetCustomerPosition() {
+
+		CustomerPositionService service =(CustomerPositionService) context.getBean("customerpositionService");
+    	list = service.getAllCustomerPosition();
+	}
+
+	private void GetCustomer() {
+		
+		CustomerService service =(CustomerService) context.getBean("customerService");
+    	list = service.getAllCustomer();
 	}
     
     
