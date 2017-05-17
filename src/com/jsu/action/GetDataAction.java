@@ -5,8 +5,12 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.ServletActionContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.jsu.Iservice.CustomerPositionService;
 import com.jsu.Iservice.CustomerService;
@@ -23,16 +27,26 @@ public class GetDataAction extends ActionSupport {
     
     private List list;  
     private String action;
-    ApplicationContext context;
-    public String getAction() {
+    private ApplicationContext context;
+    private int id;
+    
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getAction() {
 		return action;
 	}
 
 	public void setAction(String action) {
 		this.action = action;
 	}
-	
-	
 
 	public List getList() {  
         return list;  
@@ -45,12 +59,13 @@ public class GetDataAction extends ActionSupport {
     
 
     public String Test(){  
-    	
-    	context = new ClassPathXmlApplicationContext("/applicationContext.xml"); 
+    	System.out.println(id);
     	if(action.equals("getStore")){
     		GetStore();
     	}else if(action.equals("getDevice")){
     		GetDevice();
+    	}else if(action.equals("getDeviceB")){
+    		GetDeviceB();
     	}else if(action.equals("getCustomer")){
     		GetCustomer();
     	}else if(action.equals("getCustomerPosition")){
@@ -64,31 +79,40 @@ public class GetDataAction extends ActionSupport {
     private void GetDevice() {
 		// TODO Auto-generated method stub
     	 
-    	DeviceService service =(DeviceService) context.getBean("deviceService");
-    	list = service.getAllDevice();
+    	DeviceService service = (DeviceService) ApplicationContextHelper.getBean("deviceService");
+        //	DeviceService service =(DeviceService) context.getBean("deviceService");
+       list = service.getAllDevice();
+	}
+    
+    private void GetDeviceB() {
+		// TODO Auto-generated method stub
+    	DeviceService service = (DeviceService) ApplicationContextHelper.getBean("deviceService");
+    //	DeviceService service =(DeviceService) context.getBean("deviceService");
+    	list = service.getDeviceFromId(id);
 	}
 
 	private void GetStore() {
-		// TODO Auto-generated method stub
+		// TODO Auto-gengeterated method stub
+//		StoreService service = (StoreService) ApplicationContextHelper.getBean("storeService");  
 		
-    	StoreService service =(StoreService) context.getBean("storeService");
-	    
-    	list = service.getAllStore();
-    	
+		StoreService service = (StoreService) ApplicationContextHelper.getBean("storeService");
+		list = service.getAllStore();
 	}
 
 	private void GetCustomerPosition() {
 
-		CustomerPositionService service =(CustomerPositionService) context.getBean("customerpositionService");
+		CustomerPositionService service =(CustomerPositionService)ApplicationContextHelper.getBean("customerpositionService");
     	list = service.getAllCustomerPosition();
 	}
 
 	private void GetCustomer() {
 		
-		CustomerService service =(CustomerService) context.getBean("customerService");
+		CustomerService service =(CustomerService)ApplicationContextHelper.getBean("customerService");
     	list = service.getAllCustomer();
 	}
+    @org.junit.Test
+	public void testName() throws Exception {
+		GetStore();
+	}
     
-    
-  
 }

@@ -17,5 +17,6 @@ public interface IDeviceDao {
     public Users getUserById(int id) throws SQLException;  
   */
 	public List<Device> getAllDevice();
+	public List<Device> getDeviceFromId(int id );
 	
 }  

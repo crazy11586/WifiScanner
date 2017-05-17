@@ -28,5 +28,12 @@ public class DeviceService implements IDeviceService{
 		// TODO Auto-generated method stub
 		return user_imple.getAllDevice();
 	}
+
+
+	@Override
+	public List<Device> getDeviceFromId(int id) {
+		// TODO Auto-generated method stub
+		return user_imple.getDeviceFromId(id);
+	}
 	
 }

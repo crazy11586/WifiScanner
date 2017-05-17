@@ -5,7 +5,6 @@ public class Device {
 	private String Device_name;
 	private int Store_id;
 	
-	
 	public int getDevice_id() {
 		return Device_id;
 	}

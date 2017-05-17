@@ -19,11 +19,23 @@ public class LoginAction extends ActionSupport {
 
 	public String username;
 	public String password;
+	
+
 
 	public String execute(){
 
-		
-
+		UserService	service = (UserService) ApplicationContextHelper.getBean("userService");
+		Users user = new Users();  	   
+		user.setUser_name("me"); 
+		// Save the object
+		try {
+			service.saveUser(user);
+			System.out.println(user.getUser_name());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("sorry");
+		}	
 //		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
 //		      //浠庡鍣� 鎺ョBean
 //		Users user = (Users) ac.getBean("TUser");
@@ -53,9 +65,11 @@ public class LoginAction extends ActionSupport {
 	public void testName() throws Exception {
 
 
-		ApplicationContext context= new ClassPathXmlApplicationContext("/applicationContext.xml");  
-	    UserService service =(UserService) context.getBean("userService");
-	    
+		UserService	service = (UserService) ApplicationContextHelper.getBean("userService");
+//		
+//		ApplicationContext context= new ClassPathXmlApplicationContext("/applicationContext.xml");  
+//	    UserService service =(UserService) context.getBean("userService");
+//	    
 		Users user = new Users();  	   
 		user.setUser_name("me"); 
 		// Save the object

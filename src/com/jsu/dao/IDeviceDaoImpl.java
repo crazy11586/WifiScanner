@@ -39,5 +39,12 @@ public class IDeviceDaoImpl implements IDeviceDao {
 		return getHibernateTemplate().find("from Device");
 		
 	}
+
+	@Override
+	public List<Device> getDeviceFromId(int id ) {
+		// TODO Auto-generated method stub
+		System.out.println(id);
+		return getHibernateTemplate().find("from Device where Store_id = "+id);
+	}
 	
 }

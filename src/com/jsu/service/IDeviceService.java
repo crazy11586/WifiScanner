@@ -18,4 +18,6 @@ public interface IDeviceService {
     */
 	
 	public List<Device> getAllDevice();
+
+	public List<Device> getDeviceFromId(int id );
 }
