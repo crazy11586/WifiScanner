@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.ServletResponseAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -23,7 +25,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import scala.util.Random;
 
-public class GetDataAction extends ActionSupport {  
+public class GetDataAction extends ActionSupport implements ServletResponseAware{  
     
     private List list;  
     private String action;
@@ -113,6 +115,12 @@ public class GetDataAction extends ActionSupport {
     @org.junit.Test
 	public void testName() throws Exception {
 		GetStore();
+	}
+
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		response.setHeader("Access-Control-Allow-Origin", "*");
 	}
     
 }
