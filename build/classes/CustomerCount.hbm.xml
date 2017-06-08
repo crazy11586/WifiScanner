@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+      
+<hibernate-mapping package="com.jsu.po">
+
+	<class name="CustomerCount" table="customer_count" catalog="scanner">
+
+		<id name="current_time" column="current_time" type="string" length="50" >
+			
+		</id>
+
+		<property name="enter" column="enter" type="int" unique="false" />
+		
+		<property name="all" column="all" type="int">
+			
+		</property>	
+	
+	</class>
+	
+</hibernate-mapping>

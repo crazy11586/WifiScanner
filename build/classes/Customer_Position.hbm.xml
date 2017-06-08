@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+      
+<hibernate-mapping package="com.jsu.po">
+
+	<class name="Customer_Position" table="customer_position" catalog="wifi">
+
+		<id name="Customer_mac" column="Customer_mac" type="string" length="255" >
+			
+		</id>	
+		<property name="Position_x" column="Position_x" type="int"  >
+			
+		</property>	
+		
+		<property name="Position_y" column="Position_y" type="int"  >
+			
+		</property>
+		<property name="CurrentTime" column="CurrentTime" type="string" length="50" >
+			
+		</property>		
+	</class>
+	
+</hibernate-mapping>
