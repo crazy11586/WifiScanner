@@ -5,7 +5,7 @@
       
 <hibernate-mapping package="com.jsu.po">
 
-	<class name="Device" table="Device" catalog="wifi">
+	<class name="Device" table="device" catalog="wifi">
 
 		<id name="Device_id" column="Device_id" type="int">
 			
@@ -16,7 +16,16 @@
 		
 		<property name="Store_id" column="Store_id" type="int">
 			
+		
 		</property>	
+	
+		<property name="Device_url" column="Device_url" type="string"
+			length="255" unique="false" />
+			
+			
+		<property name="Device_desc" column="Device_desc" type="string"
+			length="255" unique="false" />
+			
 	</class>
 	
 </hibernate-mapping>

@@ -10,14 +10,14 @@
 		<id name="Customer_mac" column="Customer_mac" type="string" length="255" >
 			
 		</id>	
-		<property name="Position_x" column="Position_x" type="int">
+		<property name="Position_x" column="Position_x" type="int"  >
 			
 		</property>	
 		
-		<property name="Position_y" column="Position_y" type="int">
+		<property name="Position_y" column="Position_y" type="int"  >
 			
 		</property>
-		<property name="CurrentTime" column="CurrentTime" type="int">
+		<property name="CurrentTime" column="CurrentTime" type="string" length="50" >
 			
 		</property>		
 	</class>

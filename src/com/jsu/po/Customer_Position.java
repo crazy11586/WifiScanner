@@ -4,7 +4,7 @@ public class Customer_Position {
 	private String Customer_mac;
 	private int Position_x;
 	private int Position_y;
-	private int CurrentTime;
+	private String CurrentTime;
 	
 	public String getCustomer_mac() {
 		return Customer_mac;
@@ -24,10 +24,10 @@ public class Customer_Position {
 	public void setPosition_y(int position_y) {
 		Position_y = position_y;
 	}
-	public int getCurrentTime() {
+	public String getCurrentTime() {
 		return CurrentTime;
 	}
-	public void setCurrentTime(int currentTime) {
+	public void setCurrentTime(String currentTime) {
 		CurrentTime = currentTime;
 	}
 	

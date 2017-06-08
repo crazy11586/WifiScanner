@@ -18,10 +18,15 @@
 	<!-- 配置数据源 -->
 <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/wifi" />
+		 
+		<property name="url" value="jdbc:mysql://10.0.0.22:3306/scanner" />
+		<property name="username" value="out"></property>
+		<property name="password" value="123456"></property> 
+       <!--
+        <property name="url" value="jdbc:mysql://localhost:3306/scanner" />
 		<property name="username" value="root"></property>
 		<property name="password" value="763893636"></property> 
-        
+        -->
     <!-- 配置初始化大小、最小、最大 -->  
     <property name="initialSize" value="1" />  
     <property name="minIdle" value="1" />   
@@ -119,6 +124,14 @@
 		<property name="ICustomerDaoImpl" ref="customerDao"></property>
 	</bean>
 	
+	<bean name="customerCountDao" class="com.jsu.dao.ICustomerCountDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<bean name="customerCountService" class="com.jsu.Iservice.CustomerCountService">
+		<property name="ICustomerCountDaoImpl" ref="customerCountDao"></property>
+	</bean>
 	
 	<bean name="customerpositionDao" class="com.jsu.dao.ICustomerPositionDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
@@ -128,4 +141,14 @@
 	<bean name="customerpositionService" class="com.jsu.Iservice.CustomerPositionService">
 		<property name="ICustomerPositionDaoImpl" ref="customerpositionDao"></property>
 	</bean>
+		
+	<bean name="configDao" class="com.jsu.dao.ICoinfigDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<bean name="configService" class="com.jsu.Iservice.ConfigService">
+		<property name="ICoinfigDaoImpl" ref="configDao"></property>
+	</bean>
+	
 </beans> 
