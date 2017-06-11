@@ -125,7 +125,7 @@
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="./">Adminia Admin</a>
+				</a> <a class="brand" href="./">GodEyes</a>
 
 				<div class="nav-collapse">
 
@@ -136,20 +136,20 @@
 						<li class="divider-vertical"></li>
 
 						<li class="dropdown"><a data-toggle="dropdown"
-							class="dropdown-toggle " href="#"> Rod Howard <b
+							class="dropdown-toggle " href="#"> Crazy11586 <b
 								class="caret"></b>
 						</a>
 
 							<ul class="dropdown-menu">
 								<li><a href="./account.html"><i class="icon-user"></i>
-										Account Setting </a></li>
+										None </a></li>
 
 								<li><a href="./change_password.html"><i
-										class="icon-lock"></i> Change Password</a></li>
+										class="icon-lock"></i> None</a></li>
 
 								<li class="divider"></li>
 
-								<li><a href="./"><i class="icon-off"></i> Logout</a></li>
+								<li><a href="./"><i class="icon-off"></i> None</a></li>
 							</ul></li>
 					</ul>
 
@@ -185,10 +185,10 @@
 
 						<div class="account-details">
 
-							<span class="account-name">Rod Howard</span> <span
-								class="account-role">Administrator</span> <span
-								class="account-actions"> <a href="javascript:;">Profile</a>
-								| <a href="javascript:;">Edit Settings</a>
+							<span class="account-name">Crazy11586</span> <span
+								class="account-role">管理员</span> <span
+								class="account-actions"> <a href="javascript:;">切换用户</a>
+								| <a href="javascript:;">资料设置</a>
 							</span>
 
 						</div>
@@ -201,13 +201,14 @@
 
 					<ul id="main-nav" class="nav nav-tabs nav-stacked">
 
-						<li><a href="./"> <i class="icon-home"></i> 客流管理
+						<li><a href="./"> <i class="icon-home"></i>
+								客流管理
 						</a></li>
-
-						<li class="active"><a href="./plans2.html"> <i
-								class="icon-pushpin"></i> 新老顾客
+						
+						<li  class="active"><a href="./plans2.html"> <i class="icon-pushpin"></i>
+								新老顾客
 						</a></li>
-
+ 
 						<li><a href="./plans.html"> <i class="icon-th-list"></i>
 								客流趋势
 						</a></li>
@@ -224,25 +225,16 @@
 						</a></li>
 						-->
 						<li><a href="./account.html"> <i class="icon-user"></i>
-								User Account
+								资料设置
 						</a></li>
 
 						<li><a href="./login.html"> <i class="icon-lock"></i>
-								Login
+								切换
 						</a></li>
 
 					</ul>
 
-
-
 					<hr />
-
-					<div class="sidebar-extra">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-							sed do eiusmod tempor incididunt ut labore et dolore magna
-							aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-					</div>
-					<!-- .sidebar-extra -->
 
 					<br />
 
@@ -262,7 +254,7 @@
 		
 		
 		function getStore(){
-			  var url_at = "http://localhost:1314/Test01/GetDataAction?action=getStore"; 
+			  var url_at = "http://localhost:8080/Test01/GetDataAction?action=getStore"; 
 		      //清空原有select内的数据
 		      $("#my_store_plans").empty();
 		      
@@ -417,7 +409,7 @@
 						
 					     
 
-					      var str = 'http://localhost:1314/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
+					      var str = 'http://localhost:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
 					      $.ajax({ 
 					    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
 					    	  url: str, 
@@ -584,7 +576,7 @@
 					    //  time1 = "1496804400000";
 					    //  time2 = "1496807999000";
 					      
-					      var str = 'http://localhost:1314/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
+					      var str = 'http://localhost:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
 					      $.ajax({ 
 					    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
 					    	  url: str, 
@@ -681,16 +673,7 @@
 
 	<div id="footer">
 
-		<div class="container">
-			<hr />
-			<p>
-				&copy; 2012 Go Ideate.More Templates <a
-					href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
-				- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-					target="_blank">网页模板</a>
-			</p>
-		</div>
-		<!-- /container -->
+
 
 	</div>
 	<!-- /footer -->

@@ -75,7 +75,7 @@ ul#nav li a:hover {
 
 
 <body>
-	<input id="meeting" type="date" value="2014-01-13" />
+
 	<div class="navbar navbar-fixed-top">
 
 		<div class="navbar-inner">
@@ -85,7 +85,7 @@ ul#nav li a:hover {
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="./">WifiFeelerAdmin</a>
+				</a> <a class="brand" href="./">GodEyes</a>
 
 				<div class="nav-collapse">
 
@@ -96,20 +96,20 @@ ul#nav li a:hover {
 						<li class="divider-vertical"></li>
 
 						<li class="dropdown"><a data-toggle="dropdown"
-							class="dropdown-toggle " href="#"> Rod Howard <b
+							class="dropdown-toggle " href="#"> Crazy11586 <b
 								class="caret"></b>
 						</a>
 
 							<ul class="dropdown-menu">
 								<li><a href="./account.html"><i class="icon-user"></i>
-										Account Setting </a></li>
+										None </a></li>
 
 								<li><a href="./change_password.html"><i
-										class="icon-lock"></i> Change Password</a></li>
+										class="icon-lock"></i> None</a></li>
 
 								<li class="divider"></li>
 
-								<li><a href="./"><i class="icon-off"></i> Logout</a></li>
+								<li><a href="./"><i class="icon-off"></i> None</a></li>
 							</ul></li>
 					</ul>
 
@@ -143,10 +143,10 @@ ul#nav li a:hover {
 
 						<div class="account-details">
 
-							<span class="account-name">Rod Howard</span> <span
-								class="account-role">Administrator</span> <span
-								class="account-actions"> <a href="javascript:;">Profile</a>
-								| <a href="javascript:;">Edit Settings</a>
+							<span class="account-name">Crazy11586</span> <span
+								class="account-role">管理员</span> <span
+								class="account-actions"> <a href="javascript:;">切换用户</a>
+								| <a href="javascript:;">资料设置</a>
 							</span>
 
 						</div>
@@ -183,11 +183,11 @@ ul#nav li a:hover {
 						</a></li>
 						-->
 						<li><a href="./account.html"> <i class="icon-user"></i>
-								User Account
+								资料设置
 						</a></li>
 
 						<li><a href="./login.html"> <i class="icon-lock"></i>
-								Login
+								切换
 						</a></li>
 
 					</ul>
@@ -294,7 +294,7 @@ ul#nav li a:hover {
 						
 						
 							function getStore() {
-								var url_at = "http://localhost:1314/Test01/GetDataAction?action=getStore";
+								var url_at = "http://localhost:8080/Test01/GetDataAction?action=getStore";
 								//清空原有select内的数据
 								$("#my_store").empty();
 								$("#mybody").empty();
@@ -429,7 +429,7 @@ ul#nav li a:hover {
 								function RefreshData() {
 									
 									$.ajax({
-												url : 'http://localhost:1314/Test01/GetDataAction?action=getCustomerPosition',
+												url : 'http://localhost:8080/Test01/GetDataAction?action=getCustomerPosition',
 												type : 'POST',
 												cache : false,
 												success : function(data,
@@ -490,7 +490,7 @@ ul#nav li a:hover {
 								time1 = "1496804341336";
 							     time2 = "1496805355381";
 							      
-							      var str = 'http://localhost:1314/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
+							      var str = 'http://localhost:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
 							      $.ajax({ 
 							    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
 							    	  url: str, 
@@ -537,18 +537,18 @@ ul#nav li a:hover {
 
 
 
+<!-- 
 					<div class="widget widget-table">
 
 
-						<!-- /widget-header -->
 
 						<ul id="nav">
 							<li><a href="javascript:void(0)"><i class="icon-th-list"></i></a><span>门店统计</span></li>
 
-							<!--  	<li onclick="change(1)" ><a href="javascript:void(0)">客流量</a></li>
+							 	<li onclick="change(1)" ><a href="javascript:void(0)">客流量</a></li>
 								<li onclick="change(2)" ><a href="javascript:void(0)">老顾客</a></li>
 								<li onclick="change(3)" ><a href="javascript:void(0)">新顾客</a></li>
-							-->
+						
 						</ul>
 						<div class="widget-content">
 
@@ -572,14 +572,10 @@ ul#nav li a:hover {
 							</table>
 
 						</div>
-						<!-- /widget-content -->
-
 					</div>
-					<!-- /widget -->
-
+ -->
 
 				</div>
-				<!-- /span9 -->
 
 
 			</div>
