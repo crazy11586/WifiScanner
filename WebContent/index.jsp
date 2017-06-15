@@ -167,6 +167,10 @@ ul#nav li a:hover {
 								新老顾客
 						</a></li>
  
+ 						<li><a href="./plans3.html"> <i class="icon-signal"></i>
+								驻留分析
+						</a></li>
+ 
 						<li><a href="./plans.html"> <i class="icon-th-list"></i>
 								客流趋势
 						</a></li>
@@ -362,7 +366,7 @@ ul#nav li a:hover {
 														type : 'scatter'
 													},
 													title : {
-														text : '顾客实时分布图'
+														text : '顾客实时分布图(平面)'
 													},
 													series : [ {} ],
 													yAxis : {
@@ -377,13 +381,19 @@ ul#nav li a:hover {
 														layout : 'vertical',
 														align : 'left',
 														verticalAlign : 'top',
-														x : 100,
-														y : 70,
+														x : 80,
+														y : 0,
 														floating : true,
 														backgroundColor : (Highcharts.theme && Highcharts.theme.legendBackgroundColor)
 																|| '#FFFFFF',
 														borderWidth : 1
 													},
+													credits: {
+												          enabled:false
+												},
+												exporting: {
+										            enabled:false
+												},
 													plotOptions : {
 														scatter : {
 															marker : {
@@ -404,7 +414,7 @@ ul#nav li a:hover {
 															},
 															tooltip : {
 																headerFormat : '<b>{series.name}</b><br>',
-																pointFormat : '{point.x} cm, {point.y} kg'
+																pointFormat : 'x = {point.x} ,y = {point.y}'
 															}
 														}
 													}
@@ -487,9 +497,8 @@ ul#nav li a:hover {
 								//客流量 + 新顾客数量 + 老顾客数量
 								var str = get_time();
 								//获取当前天数的
-								time1 = "1496804341336";
-							     time2 = "1496805355381";
-							      
+								time1 = "1497369600000";
+							    time2 = "1497409300000";
 							      var str = 'http://localhost:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
 							      $.ajax({ 
 							    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000

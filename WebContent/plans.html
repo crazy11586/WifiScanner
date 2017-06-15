@@ -335,16 +335,21 @@
 							type: 'spline'
 						},
 						title :{
-							text:"客流趋势",
+							text:"入店率统计表",
 							style:{
 								color:"#000000"
 							}
+						},credits: {
+					          enabled:false
 						},
+						exporting: {
+				            enabled:false
+				},
 						series: [{
-							name: "新顾客"
+							name: "客流量"
 			
 						},{
-							name: "老顾客"
+							name: "店内客流"
 						}],
 				        xAxis: {
 				            type: 'datetime',
@@ -362,7 +367,12 @@
 				            gridLineWidth: 0,
 				            alternateGridColor: null
 				
-				        },
+				        },credits: {
+					          enabled:false
+						},
+						exporting: {
+				            enabled:false
+				},
 				        tooltip: {
 				            valueSuffix: ' 人次'
 				        },
@@ -530,7 +540,7 @@
 						}
 						});
 		            }
-				f1( '1496804341336' , '1496805355381' );
+				f1( '1497369600000' , '1497409300000' );
 					
 					function check(){
 						 if($('input:radio[id="day_radio"]:checked').val() == null){

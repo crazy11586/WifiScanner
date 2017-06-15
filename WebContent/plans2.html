@@ -349,11 +349,16 @@
 							type: 'spline'
 						},
 						title :{
-							text:"客流趋势",
+							text:"新老顾客统计表",
 							style:{
 								color:"#000000"
 							}
+						},credits: {
+					          enabled:false
 						},
+						exporting: {
+				            enabled:false
+				},
 						series: [{
 							name: "新顾客"
 			
@@ -546,7 +551,7 @@
 					GetSumData(time1,time2);
 				    
 				}
-				f1( '1496804341336' , '1496805355381' );
+				f1( '1497369600000' , '1497409300000' );
 					
 				function check(){
 						 if($('input:radio[id="day_radio"]:checked').val() == null){

@@ -103,6 +103,8 @@ public class GetDataAction extends ActionSupport implements ServletResponseAware
     		GetCustomerCount2Time();
     	}else if(action.equals("getall")){
     		GetAllOrenter();
+    	}else if(action.equals("getrate")){
+    		GetAllRate();
     	}else{
     		list.add("The args is Error !!! ");
     	}
@@ -166,6 +168,11 @@ public class GetDataAction extends ActionSupport implements ServletResponseAware
     			+ "and (A.currentTime+0) > "+time1+" and (A.currentTime+0) <  "+time2+"");
 	}
 	
+	private void GetAllRate(){
+		ConfigService service =(ConfigService)ApplicationContextHelper.getBean("configService");
+    	list = service.queryBySql("select B.currentTime , count(distinct mac) , IFNULL(sum(staytime),0) , B.allCustomer from customer_info A right join allc B on (A.currentTime+0) > (B.currentTime+0)  and (A.currentTime+0)-(B.currentTime+0) < 3600000 group by B.currentTime , B.allCustomer");
+	}
+	
     @org.junit.Test
 	public void testName() throws Exception {
 		GetStore();
@@ -177,7 +184,7 @@ public class GetDataAction extends ActionSupport implements ServletResponseAware
 		response.setHeader("Access-Control-Allow-Origin", "*");
 	}
 	
-	//·¶Î§ÊÇ1496804400000 - 1496807999000
+	//ï¿½ï¿½Î§ï¿½ï¿½1496804400000 - 1496807999000
 	
 	/**
 	 
