@@ -18,15 +18,15 @@
 	<!-- 配置数据源 -->
 <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		  
-		<property name="url" value="jdbc:mysql://10.0.0.22:3306/scanner?connectTimeout=60000" />
-		<property name="username" value="out"></property>
-		<property name="password" value="123456"></property> 
-       <!--
+		  <!--
+		<property name="url" value="jdbc:mysql://10.0.0.172:3306/scanner?connectTimeout=60000" />
+		<property name="username" value="root"></property>
+		<property name="password" value="199729"></property> 
+           -->
         <property name="url" value="jdbc:mysql://localhost:3306/scanner" />
 		<property name="username" value="root"></property>
 		<property name="password" value="763893636"></property> 
-        -->
+    
          <!--
          <property name="url" value="jdbc:mysql://localhost:3306/scanner" />
 		<property name="username" value="root"></property>

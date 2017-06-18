@@ -5,16 +5,16 @@
       
 <hibernate-mapping package="com.jsu.po">
 
-	<class name="Customer_Position" table="customer_position" catalog="wifi">
+	<class name="Customer_Position" table="customer_position" catalog="scanner">
 
 		<id name="Customer_mac" column="Customer_mac" type="string" length="255" >
 			
 		</id>	
-		<property name="Position_x" column="Position_x" type="int"  >
+		<property name="Position_x" column="Position_x" type="double"  >
 			
 		</property>	
 		
-		<property name="Position_y" column="Position_y" type="int"  >
+		<property name="Position_y" column="Position_y" type="double"  >
 			
 		</property>
 		<property name="CurrentTime" column="CurrentTime" type="string" length="50" >

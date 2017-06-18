@@ -208,7 +208,7 @@ ul#nav li a:hover {
 				<div class="span9">
 
 					<h1 class="page-title">
-						<i class="icon-home"></i> 今天总计
+						<i class="icon-home"></i> 今日客流
 					</h1>
 
 					<div class="stat-container">
@@ -237,7 +237,7 @@ ul#nav li a:hover {
 						</div>
 						<!-- /stat-holder -->
 
-						<div class="stat-holder">
+						<div class="stat-holder" style="display:none">
 							<div class="stat">
 								<span>2</span> 平均驻店时长
 							</div>
@@ -453,7 +453,7 @@ ul#nav li a:hover {
 													for (var i = 0; i < json.length; i++) {
 														x = json[i].position_x;
 														y = json[i].position_y;
-														data.push([ x, y ]);
+														data.push([ parseFloat(x), parseFloat(y) ]);
 													}
 													chart.series[0]
 															.setData(data);
@@ -497,8 +497,8 @@ ul#nav li a:hover {
 								//客流量 + 新顾客数量 + 老顾客数量
 								var str = get_time();
 								//获取当前天数的
-								time1 = "1497369600000";
-							    time2 = "1497409300000";
+								time1 = "1497499200872";
+							    time2 = "1497582000266";
 							      var str = 'http://localhost:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
 							      $.ajax({ 
 							    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000

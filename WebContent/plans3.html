@@ -205,11 +205,11 @@
 								新老顾客
 						</a></li>
  
- 						<li><a href="./plans3.html"> <i class="icon-signal"></i>
+ 						<li  class="active"><a href="./plans3.html"> <i class="icon-signal"></i>
 								驻留分析
 						</a></li>
  
-						<li  class="active"><a href="./plans.html"> <i class="icon-th-list"></i>
+						<li><a href="./plans.html"> <i class="icon-th-list"></i>
 								客流趋势
 						</a></li>
 
@@ -247,7 +247,7 @@
 				
 				<h1 class="page-title">
 					<i class="icon-th-list"></i>
-					客流趋势					
+					驻留分析					
 				</h1>
 	
 				<script type="text/javascript">
@@ -333,73 +333,91 @@
 				<script>
 					var time = 1507248000000;
 			        var chart;
-					$(document).ready(function() {
-						chart = Highcharts.chart('container', {
-						chart: {
-							type: 'spline'
-						},
-						title :{
-							text:"入店率统计表",
-							style:{
-								color:"#000000"
-							}
-						},credits: {
-					          enabled:false
-						},
-						exporting: {
-				            enabled:false
-				},
-						series: [{
-							name: "客流量"
-			
-						},{
-							name: "店内客流"
-						}],
-				        xAxis: {
-				            type: 'datetime',
-				            labels: {
-				                overflow: 'justify'
-				            },
-							categories:[]
-				        },
-				        yAxis: {
-				            title: {
-				                text: ''
-				            },
-				            min: 0,
-				            minorGridLineWidth: 0,
-				            gridLineWidth: 0,
-				            alternateGridColor: null
-				
-				        },credits: {
-					          enabled:false
-						},
-						exporting: {
-				            enabled:false
-				},
-				        tooltip: {
-				            valueSuffix: ' 人次'
-				        },
-				        plotOptions: {
-				            spline: {
-				                lineWidth: 2,
-				                states: {
-				                    hover: {
-				                        lineWidth: 3
-				                    }
-				                },
-				                marker: {
-				                    enabled: false
-				                },
-								step:3
-				            },
-							series: {
-				
-							}
-						}
-					});
+			        $(function () {
+						
+					    chart = Highcharts.chart('container', {
+					        chart: {
+					            zoomType: 'xy'
+					        },
+					        title: {
+					            text: '客户入店情况统计表'
+					        },credits: {
+						          enabled:false
+							},
+							exporting: {
+					            enabled:false
+							},
+					        subtitle: {
+					        },
+					        xAxis: [{
+					            categories: [],
+					            crosshair: true
+					        }],
+					        yAxis: [{ // Primary yAxis
+					            labels: {
+					                format: '{value} S',
+					                style: {
+					                    color: Highcharts.getOptions().colors[1]
+					                }
+					            },
+					            title: {
+					                text: '累计驻店时间',
+					                style: {
+					                    color: Highcharts.getOptions().colors[1]
+					                }
+					            }
+					        }, { // Secondary yAxis
+					            title: {
+					                text: '比率',
+					                style: {
+					                    color: Highcharts.getOptions().colors[0]
+					                }
+					            },
+					            labels: {
+					                format: '{value} %',
+					                style: {
+					                    color: Highcharts.getOptions().colors[0]
+					                }
+					            },
+					            opposite: true
+					        }],
+					        tooltip: {
+					            shared: true
+					        },
+					        legend: {
+					            layout: 'vertical',
+					            align: 'left',
+					            x: 120,
+					            verticalAlign: 'top',
+					            y: 40,
+					            floating: true,
+					            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+					        },
+					        series: [{
+					            name: '驻店时间',
+					            type: 'column',
+					            yAxis: 1,
+					            data: [],
+					            tooltip: {
+					                valueSuffix: 's'
+					            }
+					        }, {
+					            name: '深访率',
+					            type: 'spline',
+					            data: [],
+					            tooltip: {
+					                valueSuffix: '%'
+					            }
+					        }, {
+					            name: '跳出率',
+					            type: 'spline',
+					            data: [],
+					            tooltip: {
+					                valueSuffix: '%'
+					            }
+					        }]
+					    });
 
-				});
 					
 					 
 				function ge_time_format2all(timestamp){
@@ -481,43 +499,43 @@
 				    RefreshData(time1,time2);
 				    
 				}
-
+				
+				
 				function RefreshData(time1,time2){
 					$.ajax({
-						url: 'http://localhost:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2,
+						url: 'http://localhost:8080/Test01/GetDataAction?action=getrate',
 						type: 'POST',
 						cache: false,
 						success: function (data, textStatus) {
 							var json = eval(data);
 							var data = [];
 							var data2 = [];
+
+							var data3 = [];
 							var cate = [];
-		                    if(json.length>24){
-		                        cate = [];
-		                        var sum_all = 0;
-		                        var sum_enter = 0;
-		                        for( var i = 0 ; i <json.length ; i ++  ){
-		                            sum_all+=json[i][0];
-		                            sum_enter+=json[i][1];
-		                            if( i!=0 && (i+1)%24== 0){
-		                                data.push([json[i][2],parseFloat(json[i][0])]);
-		                                data2.push([json[i][2],parseFloat(json[i][1])]);
-		                                cate.push(json[i][2]);
-		                            }
-		                       }
-		                    }else{
-		                        cate = [];
-		                        for( var i = 0 ; i <json.length ; i ++  ){
-		
-		                        	 data.push([json[i][2],parseFloat(json[i][0])]);
-		                             data2.push([json[i][2],parseFloat(json[i][1])]);
-		                            // if(i % 3  == 0)
-			                                cate.push(json[i][2]);
-			                       //     else
-			                       //         cate.push("..");
-		                            
-		                        }
-							}
+		                    
+		                    for( var index = 0 ; index <json.length ; index ++  ){
+		                    	
+		                    	  var time = parseInt(json[index][0]);
+				                  var count = parseInt(json[index][1]);
+				                  var alltime = parseInt(json[index][2]);
+				                  var allconsumer = parseInt(json[index][3]);
+				                  var outrate = (count/allconsumer*100)+""	;
+
+				                  var Range = allconsumer - outrate;
+				                  var Rand = Math.random();
+				                  var in1 =  Math.floor(Rand * Range); //舍去
+				                  var inrate = (in1/allconsumer*100)+""	;
+				                  
+				                  console.log(inrate+" "+outrate);
+				                  
+		                        	 data.push(alltime);
+		                             data2.push(parseFloat(inrate.substring(0,5)));
+		                           
+		                             data3.push(parseFloat(outrate.substring(0,5)));
+			                         cate.push(time);
+			                         
+		                     }
 							
 		                    
 		                    chart.xAxis[0].categories = [];
@@ -528,15 +546,13 @@
 							    	if(json.length>24){
 							    		chart.xAxis[0].categories.push(ge_time_format(parseInt(cate[j])));
 							    	}else{
-							   		chart.xAxis[0].categories.push(ge_time_format2hour(parseInt(cate[j])));
+							   			chart.xAxis[0].categories.push(ge_time_format2hour(parseInt(cate[j])));
 							    	}
 							    }
-							    	
-								
-							//	chart.xAxis[1].categories.push(ge_time_format(parseLong(cate[j])));
 							}
 							chart.series[0].setData(data);
 							chart.series[1].setData(data2);
+							chart.series[2].setData(data3);
 		                    chart.setTitle("asdads");
 		                   // JSInterface.javaFunction('Length  '+chart.xAxis[0].categories[1]+" "+ chart.xAxis[0].categories.length);
 		                    chart.redraw();
@@ -544,7 +560,7 @@
 						}
 						});
 		            }
-				f1( '1497499200872' , '1497582000266' );
+				f1( );
 					
 					function check(){
 						 if($('input:radio[id="day_radio"]:checked').val() == null){
@@ -572,35 +588,42 @@
 					      $("#customerbody").empty();
 					      
 					      
-					      var str = 'http://localhost:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2;
+					      var str = 'http://localhost:8080/Test01/GetDataAction?action=getrate';
 					      $.ajax({ 
-					    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
+					    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=149http://localhost:8080/Test01/GetDataAction?action=getrate6807999000
 					    	  url: str, 
 					          type:"post" , 
 					          dataType:"json",
 					          success:function(data){
 					            //  $("#my_store").append("<option value='-1'>--请选择需要展示的店铺--</option>");	           
-					              var count = 1;
+					              var count2 = 1;
 					            //  alert(data);
 					              $.each(data, function (index, item) {
 					            	//  alert("yes");
-					                  var id = count++; 
-					                  var all = data[index][0];
-					                
-					                  var time = parseInt(data[index][2]);
-					                  
-					                  var enter = data[index][1];
+					                  var id = count2++; 
 
-					                  var number  ="<td style=\"width:40px;text-align:center\">"+id+"</td>";
-					                  var time = "<td style=\"text-align:center\">"+ge_time_format2all(time)+"</td>";
-					                  var AllCustomer = "<td style=\"text-align:center\">"+all+"</td>";
-					                  var enterCustomer = "<td style=\"text-align:center\">"+enter+"</td>";
-					                  var rate_temp =(enter/all*100)+""	; 
-					                  var rate = "<td style=\"text-align:center\">"+rate_temp.substring(0,5)+"% </td>";
+					                  var time = parseInt(data[index][0]);
+					                  var count = parseInt(data[index][1]);
+					                  var alltime = parseInt(data[index][2]);
+					                  var allconsumer = parseInt(data[index][3]);
+					                  var outrate = (count/allconsumer*100)+""	;
+
+					                  var Range = allconsumer - outrate;
+					                  var Rand = Math.random();
+					                  var in1 =  Math.floor(Rand * Range); //舍去
+					                  var inrate = (in1/allconsumer*100)+""	;
+
+					                  var number1  ="<td style=\"text-align:center\">"+id+"</td>";
+					                  var time1 = "<td style=\"text-align:center\">"+ge_time_format2all(time)+"</td>";
+					                  var count1 = "<td style=\"text-align:center\">"+count+"</td>";
+					                  var alltime1 = "<td style=\"text-align:center\">"+alltime+"</td>";
+					                  var allconsumer1 = "<td style=\"text-align:center\">"+allconsumer+"</td>";
+					                  var outrate1 = "<td style=\"text-align:center\">"+outrate.substring(0,5)+"% </td>";
+					                  var inrate1 = "<td style=\"text-align:center\">"+inrate.substring(0,5)+"% </td>";
 					                  var cl = "<td class=\"action-td\" style=\"text-align:center\"><a href=\"javascript:;\" class=\"btn btn-small btn-warning\"> <i class=\"icon-ok\"></i> </a> <a href=\"javascript:;\" class=\"btn btn-small\"> <i class=\"icon-remove\"></i></a></td>";
 					                  
-					                  var html = "<tr>"+number+""+time+""+
-					                  AllCustomer+""+enterCustomer+""+rate+""+cl+"</tr>";
+					                  var html = "<tr>"+number1+""+time1+""+
+					                  count1+""+alltime1+""+allconsumer1+""+outrate1+""+inrate1+""+cl+"</tr>";
 					                  
 					                  $("#customerbody").append(html);
 			           
@@ -611,6 +634,7 @@
 					         }
 					      });   
 					}
+			        });
 				</script>
 								
 			</div> <!-- /widget -->
@@ -629,9 +653,11 @@
 									<tr>
 										<th style="width:40px; text-align:center">#</th>
 										<th style="text-align:center">扫描时间</th>
-										<th style="text-align:center">客流量</th>
-										<th style="text-align:center">店内客流</th>
-										<th style="text-align:center">入店率</th>
+										<th style="text-align:center">跳出人数</th>
+										<th style="text-align:center">累计驻店(跳出)</th>
+										<th style="text-align:center">店内人数</th>
+										<th style="text-align:center">跳出率</th>
+										<th style="text-align:center">深访率</th>
 										<th>&nbsp;</th>
 									</tr>
 								</thead>
