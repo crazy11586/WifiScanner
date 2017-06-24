@@ -38,5 +38,14 @@ public class ICustomerPositionDaoImpl implements ICustomerPositionDao {
 		// TODO Auto-generated method stub
 		return getHibernateTemplate().find("from Customer_Position");
 	}
+
+	@Override
+	public List<Customer_Position> getAllCustomerPositionTime(String time1 , String time2) {
+		// TODO Auto-generated method stub
+		//select * from customer_position where currentTime between 1497403200597 and 1497411000554;
+		String str = "from Customer_Position where CurrentTime between " +time1+" and "+time2;
+		return getHibernateTemplate().find(str);
+	
+	}
 	
 }

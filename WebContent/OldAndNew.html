@@ -256,7 +256,7 @@
 		
 		
 		function getStore(){
-			  var url_at = "http://localhost:8080/Test01/GetDataAction?action=getStore"; 
+			  var url_at = "http://10.0.0.35:8080/Test01/GetDataAction?action=getStore"; 
 		      //清空原有select内的数据
 		      $("#my_store_plans").empty();
 		      
@@ -323,17 +323,14 @@
 
 							<h4>日期筛选&nbsp;:</h4>
 
-							<input id="day_radio" type="radio" name="pick_time" value="0"
-								checked style="margin-left: 30px">按周筛选</input> <input
-								id="week_radio" type="radio" name="pick_time" value="1"
-								style="margin-left: 30px">按日筛选</input><br /> <input id="day"
-								style="display: none; margin-left: 30px; margin-top: 8px"
-								type="date" value="2017-05-01" min="2017-05-01" max="2017-06-29" />
-							<input id="week" style="margin-left: 30px; margin-top: 8px"
-								type="week" value="2017-W18" min="2017-W18" max="2017-W26" /> <input
-								type="button" value="refresh"
-								style="margin-left: 10px; margin-top: 8px" onclick="check()" />
-
+						<input id="day_radio" type="radio" name="pick_time" value="0"  style="margin-left : 30px">按周筛选</input>
+					<input id="week_radio" type="radio" name="pick_time" value="1" checked style="margin-left : 30px">按日筛选</input><br />
+					
+					 <input id="week"  style="display: none;margin-left:30px;margin-top:8px "type="week" value="2017-W18" min="2017-W18" max="2017-W26"/>	
+					<input id="day"
+								style=" margin-left: 30px; margin-top: 8px"
+								type="date" value="2017-06-15" min="2017-06-15" max="2017-06-15" />
+					
 							<hr />
 
 							<div id="container"
@@ -362,10 +359,10 @@
 				            enabled:false
 						},
 						series: [{
-							name: "新顾客"
+							name: "老顾客"
 			
 						},{
-							name: "老顾客"
+							name: "新顾客"
 						}],
 				        xAxis: {
 				            type: 'datetime',
@@ -416,13 +413,13 @@
 						
 					     
 
-					      var str = 'http://localhost:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
+					      var str = 'http://10.0.0.35:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
 					      $.ajax({ 
-					    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
+					    	  //http://10.0.0.35:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
 					    	  url: str, 
 					          type:"post" , 
 					          dataType:"json",
-					          success:function(data1	){
+					          success:function(data1){
 					            //  $("#my_store").append("<option value='-1'>--请选择需要展示的店铺--</option>");	           
 					              var count = 1;
 					            //  alert(data);
@@ -442,7 +439,7 @@
 				                  	 data.push([data1[index].current_time,parseFloat(all)]);
 			                         data2.push([data1[index].current_time,parseFloat(enter)]);
 			                         cate.push(time);	              
-			         
+			 
 					              });
 					              
 					              chart.xAxis[0].categories = [];
@@ -576,16 +573,16 @@
 					 }
 					
 			function getCustomer(time1,time2){
-						//  var url_at = "http://localhost:1314/Test01/GetDataAction?action=getCustomerCount2time&time1="+time1+"&time2="+time2; 
+						//  var url_at = "http://10.0.0.35:1314/Test01/GetDataAction?action=getCustomerCount2time&time1="+time1+"&time2="+time2; 
 					      //清空原有select内的数据
 					      $("#customerbody").empty();
 					      
 					    //  time1 = "1496804400000";
 					    //  time2 = "1496807999000";
 					      
-					      var str = 'http://localhost:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
+					      var str = 'http://10.0.0.35:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
 					      $.ajax({ 
-					    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
+					    	  //http://10.0.0.35:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
 					    	  url: str, 
 					          type:"post" , 
 					          dataType:"json",

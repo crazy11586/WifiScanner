@@ -97,6 +97,8 @@ public class GetDataAction extends ActionSupport implements ServletResponseAware
     		GetCustomer();
     	}else if(action.equals("getCustomerPosition")){
     		GetCustomerPosition();
+    	}else if(action.equals("getCustomerPositiontime")){
+    		GetCustomerPositionTime();
     	}else if(action.equals("getCustomerCount")){
     		GetCustomerCount();
     	}else if(action.equals("getCustomerCount2time")){
@@ -140,6 +142,14 @@ public class GetDataAction extends ActionSupport implements ServletResponseAware
     	list = service.getAllCustomerPosition();
     	
 	}
+	
+	private void GetCustomerPositionTime() {
+
+		CustomerPositionService service =(CustomerPositionService)ApplicationContextHelper.getBean("customerpositionService");
+    	list = service.getAllCustomerPositionTime(time1, time2);
+    	
+	}
+	
 	
 	private void GetCustomerCount() {
 		// TODO Auto-gengeterated method stub

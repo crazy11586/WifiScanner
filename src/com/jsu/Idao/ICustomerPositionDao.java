@@ -19,5 +19,5 @@ public interface ICustomerPositionDao {
     public Users getUserById(int id) throws SQLException;  
   */
 	public List<Customer_Position> getAllPosition();
-	
+	public List<Customer_Position> getAllCustomerPositionTime(String time1 , String time2);
 }  

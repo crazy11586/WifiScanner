@@ -163,7 +163,7 @@ ul#nav li a:hover {
 								客流管理
 						</a></li>
 						
-						<li><a href="./plans2.html"> <i class="icon-pushpin"></i>
+						<li><a href="./OldAndNew.html"> <i class="icon-pushpin"></i>
 								新老顾客
 						</a></li>
  
@@ -298,7 +298,7 @@ ul#nav li a:hover {
 						
 						
 							function getStore() {
-								var url_at = "http://localhost:8080/Test01/GetDataAction?action=getStore";
+								var url_at = "http://10.0.0.35:8080/Test01/GetDataAction?action=getStore";
 								//清空原有select内的数据
 								$("#my_store").empty();
 								$("#mybody").empty();
@@ -421,7 +421,8 @@ ul#nav li a:hover {
 												});
 								
 								getStore();
-								RefreshData();
+								//RefreshData("1497408360562","1497409680564");
+								RefreshData("1497408600564","1497411000554");
 								settime();
 								
 								function change(index) {
@@ -436,10 +437,10 @@ ul#nav li a:hover {
 									}
 								}
 						
-								function RefreshData() {
-									
+								function RefreshData(time1 , time2) {
+									//RefreshData("1497408360562","1497409680564");
 									$.ajax({
-												url : 'http://localhost:8080/Test01/GetDataAction?action=getCustomerPosition',
+												url : 'http://10.0.0.35:8080/Test01/GetDataAction?action=getCustomerPositiontime&time1 = '+time1+'&time2 = '+time2,
 												type : 'POST',
 												cache : false,
 												success : function(data,
@@ -453,6 +454,8 @@ ul#nav li a:hover {
 													for (var i = 0; i < json.length; i++) {
 														x = json[i].position_x;
 														y = json[i].position_y;
+														
+														if(parseFloat(x) > -3 && parseFloat(x) < 2)
 														data.push([ parseFloat(x), parseFloat(y) ]);
 													}
 													chart.series[0]
@@ -463,7 +466,7 @@ ul#nav li a:hover {
 
 								}
 								
-								var countdown = 10;
+								var countdown = 30;
 								
 								function settime() {
 									
@@ -471,8 +474,8 @@ ul#nav li a:hover {
 									if (countdown == 0) {
 									//	val.removeAttribute("disabled");
 										val.val("正在刷新数据") ;
-										RefreshData();
-										countdown = 10;
+										RefreshData("1497409560564","1497410960564");
+										countdown = 30;
 									} else {
 									//	val.setAttribute("disabled", true);
 										val.val("剩余自动刷新时间  : "+countdown + " S ");
@@ -499,9 +502,9 @@ ul#nav li a:hover {
 								//获取当前天数的
 								time1 = "1497499200872";
 							    time2 = "1497582000266";
-							      var str = 'http://localhost:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
+							      var str = 'http://10.0.0.35:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
 							      $.ajax({ 
-							    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
+							    	  //http://10.0.0.35:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
 							    	  url: str, 
 							          type:"post" , 
 							          dataType:"json",

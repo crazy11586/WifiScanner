@@ -19,4 +19,5 @@ public interface ICustomerPositionService {
     */
 	
 	public List<Customer_Position> getAllCustomerPosition();
+	public List<Customer_Position> getAllCustomerPositionTime(String time1 , String time2);
 }

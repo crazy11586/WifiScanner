@@ -201,7 +201,7 @@
 								客流管理
 						</a></li>
 						
-						<li><a href="./plans2.html"> <i class="icon-pushpin"></i>
+						<li><a href="./OldAndNew.html"> <i class="icon-pushpin"></i>
 								新老顾客
 						</a></li>
  
@@ -255,7 +255,7 @@
 		
 		
 		function getStore(){
-			  var url_at = "http://localhost:8080/Test01/GetDataAction?action=getStore"; 
+			  var url_at = "http://10.0.0.35:8080/Test01/GetDataAction?action=getStore"; 
 		      //清空原有select内的数据
 		      $("#my_store_plans").empty();
 		      
@@ -315,12 +315,13 @@
 				
 					<h4>日期筛选&nbsp;:</h4>
 					
-					<input id="day_radio" type="radio" name="pick_time" value="0" checked style="margin-left : 30px">按周筛选</input>
-					<input id="week_radio" type="radio" name="pick_time" value="1" style="margin-left : 30px">按日筛选</input><br />
+					<input id="day_radio" type="radio" name="pick_time" value="0"  style="margin-left : 30px">按周筛选</input>
+					<input id="week_radio" type="radio" name="pick_time" value="1" checked style="margin-left : 30px">按日筛选</input><br />
 					
-					 
-					<input id="day" style="display:none;margin-left : 30px;margin-top:8px" type="date" value="2017-05-01" min="2017-05-01" max="2017-06-29" />	
-					<input id="week"  style="margin-left:30px;margin-top:8px "type="week" value="2017-W18" min="2017-W18" max="2017-W26"/>
+					 <input id="week"  style="display: none;margin-left:30px;margin-top:8px "type="week" value="2017-W18" min="2017-W18" max="2017-W26"/>	
+					<input id="day"
+								style=" margin-left: 30px; margin-top: 8px"
+								type="date" value="2017-06-15" min="2017-06-15" max="2017-06-15" />
 					
 					<input type="button" value="refresh" style="margin-left:10px;margin-top:8px" onclick="check()"/>
 					
@@ -484,7 +485,7 @@
 
 				function RefreshData(time1,time2){
 					$.ajax({
-						url: 'http://localhost:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2,
+						url: 'http://10.0.0.35:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2,
 						type: 'POST',
 						cache: false,
 						success: function (data, textStatus) {
@@ -567,14 +568,14 @@
 					 }
 					
 					function getCustomer(time1,time2){
-						//  var url_at = "http://localhost:1314/Test01/GetDataAction?action=getCustomerCount2time&time1="+time1+"&time2="+time2; 
+						//  var url_at = "http://10.0.0.35:1314/Test01/GetDataAction?action=getCustomerCount2time&time1="+time1+"&time2="+time2; 
 					      //清空原有select内的数据
 					      $("#customerbody").empty();
 					      
 					      
-					      var str = 'http://localhost:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2;
+					      var str = 'http://10.0.0.35:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2;
 					      $.ajax({ 
-					    	  //http://localhost:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
+					    	  //http://10.0.0.35:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
 					    	  url: str, 
 					          type:"post" , 
 					          dataType:"json",

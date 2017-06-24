@@ -34,6 +34,12 @@ public class CustomerPositionService implements ICustomerPositionService{
 		return user_imple.getAllPosition();
 	}
 
+	@Override
+	public List<Customer_Position> getAllCustomerPositionTime(String time1, String time2) {
+		// TODO Auto-generated method stub
+		return user_imple.getAllCustomerPositionTime(time1, time2);
+	}
+
 
 
 
