@@ -5,7 +5,7 @@
       
 <hibernate-mapping package="com.jsu.po">
 
-	<class name="CustomerCount" table="customer_count" catalog="scanner">
+	<class name="CustomerCount" table="customer_count" catalog="wifi">
 
 		<id name="current_time" column="current_time" type="string" length="50" >
 			

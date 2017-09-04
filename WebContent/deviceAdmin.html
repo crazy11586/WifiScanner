@@ -182,36 +182,57 @@ ul#nav li a:hover {
 
 <script>
 window.onload = function() {
-    var oDiv = document.getElementById("tab");
-    var oLi = oDiv.getElementsByTagName("div")[0].getElementsByTagName("li");
-    var aCon = oDiv.getElementsByTagName("div")[1].getElementsByTagName("div");
-    var timer = null;
-    for (var i = 0; i < oLi.length; i++) {
-        oLi[i].index = i;
-        oLi[i].onmouseover = function() {
-            show(this.index);
-        }
+   
+    function GetInfo(url_profile , url_setting){
+    	
+    	
+    	$.ajax({
+    		
+				url: 'http://47.94.104.25:8080/Test01/GetDataAction?action=getdeviceinfo&url_profile='+url_profile+'&url_setting='+url_setting,
+				type: 'POST',
+				cache: false,
+				success: function (data1) {
+	    			console.log(data1);
+	    			
+	    			var gujian = data1[0].gujian;
+	    			var hostname = data1[0].hostname;
+	    			var hostname_kind =data1[0].hostname_kind;
+	    			var neihe = data1[0].neihe;
+	    			var upload_url = data1[0].upload_url;
+	    			var upload_port = data1[0].upload_port;
+	    			
+	    			$("#gujian").text(gujian);
+	    			$("#hostname").text(hostname);
+	    			$("#hostname_kind").text(hostname_kind);
+	    			$("#neihe").text(neihe);
+	    			$("#upload_url").val(upload_url);
+	    			$("#upload_port").val(upload_port);
+	    			
+				}
+    		
+    	});
     }
-    function show(a) {
-        index = a;
-        var alpha = 0;
-        for (var j = 0; j < oLi.length; j++) {
-            oLi[j].className = "";
-            aCon[j].className = "";
-            aCon[j].style.opacity = 0;
-            aCon[j].style.filter = "alpha(opacity=0)";
-        }
-        oLi[index].className = "cur";
-        clearInterval(timer);
-        timer = setInterval(function() {
-            alpha += 2;
-            alpha > 100 && (alpha = 100);
-            aCon[index].style.opacity = alpha / 100;
-            aCon[index].style.filter = "alpha(opacity=" + alpha + ")";
-            alpha == 100 && clearInterval(timer);
-        },
-        5)
-    }
+    var url_profile = "http://10.0.0.168/cgi-bin/luci/;stok=c8474a1a419293b729915ef083c2c560/admin/status?username=rootandpassword=datasky";
+	var url_setting = "http://10.0.0.168/cgi-bin/luci/;stok=bddaf8fa56b2ceadca3990d21385c1ce/admin/network/data_upload?username=rootandpassword=datasky";
+	GetInfo(url_profile,url_setting);
+    $("#tab1").click(function(){
+    	var url_profile = "http://10.0.0.168/cgi-bin/luci/;stok=c8474a1a419293b729915ef083c2c560/admin/status?username=rootandpassword=datasky";
+    	var url_setting = "http://10.0.0.168/cgi-bin/luci/;stok=bddaf8fa56b2ceadca3990d21385c1ce/admin/network/data_upload?username=rootandpassword=datasky";
+    	GetInfo(url_profile,url_setting);
+    });
+    
+    $("#tab2").click(function(){
+    	var url_profile = "http://10.0.0.181/cgi-bin/luci/;stok=c8474a1a419293b729915ef083c2c560/admin/status?username=rootandpassword=admin";
+    	var url_setting = "http://10.0.0.181/cgi-bin/luci/;stok=bddaf8fa56b2ceadca3990d21385c1ce/admin/network/data_upload?username=rootandpassword=admin";
+    	GetInfo(url_profile,url_setting);
+    });
+    
+    $("#tab3").click(function(){
+    	var url_profile = "http://10.0.0.182/cgi-bin/luci/;stok=c8474a1a419293b729915ef083c2c560/admin/status?username=rootandpassword=admin";
+    	var url_setting = "http://10.0.0.182/cgi-bin/luci/;stok=bddaf8fa56b2ceadca3990d21385c1ce/admin/network/data_upload?username=rootandpassword=admin";
+    	GetInfo(url_profile,url_setting);
+    });
+    
 }
 </script>
 <body>
@@ -300,31 +321,24 @@ window.onload = function() {
 
 					<ul id="main-nav" class="nav nav-tabs nav-stacked">
 
-						<li ><a href="./"> <i class="icon-home"></i>
+						<li ><a href="./index.jsp"> <i class="icon-home"></i>
 								客流管理
 						</a></li>
 						
 						<li><a href="./OldAndNew.html"> <i class="icon-pushpin"></i>
 								新老顾客
 						</a></li>
- <li><a href="./plans3.html"> <i class="icon-signal"></i>
+ 						<li><a href="./customerStay.html"> <i class="icon-signal"></i>
 								驻留分析
 						</a></li>
-						<li><a href="./plans.html"> <i class="icon-th-list"></i>
+						<li><a href="./customerDirection.html"> <i class="icon-th-list"></i>
 								客流趋势
 						</a></li>
 
-						<li class="active"> <a href="./grid.html"> <i class="icon-th-large"></i>
-								设备管理 <!-- 
-						<span class="label label-warning pull-right">5</span>
-						-->
+						<li class="active"> <a href="./deviceAdmin.html"> <i class="icon-th-large"></i>
+								设备管理
 						</a></li>
 
-						<!--  
-						<li><a href="./charts.html"> <i class="icon-signal"></i>
-								Charts
-						</a></li>
-						-->
 						<li><a href="./account.html"> <i class="icon-user"></i>
 								资料设置
 						</a></li>
@@ -356,7 +370,7 @@ window.onload = function() {
 		
 		
 		function getStore(){
-			  var url_at = "http://10.0.0.35:8080/Test01/GetDataAction?action=getStore"; 
+			  var url_at = "http://47.94.104.25:8080/Test01/GetDataAction?action=getStore"; 
 		      //清空原有select内的数据
 		      $("#my_store").empty();
 		      
@@ -404,12 +418,8 @@ window.onload = function() {
 						</div>
 									
 									
-							<div class="widget-content" style="padding:0">
+						<div class="widget-content" style="padding:0">
 								
-								<div style="text-align:center;clear:both">
-								<script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
-								<script src="/follow.js" type="text/javascript"></script>
-								</div>
 						<main>
 						
 						  <input id="tab1" type="radio" name="tabs" checked>
@@ -418,25 +428,114 @@ window.onload = function() {
 						  <input id="tab2" type="radio" name="tabs">
 						  <label for="tab2">Device_181</label>
 						  
-						<input id="tab3" type="radio" name="tabs">
+						  <input id="tab3" type="radio" name="tabs">
 						  <label for="tab3">Device_182</label>
 						  
-						  <section id="content1">
-						  <iframe src="http://10.0.0.168" width="100%" height="400px"></iframe>
-						    
-						  </section> 
+						  <div class="widget-content" style="padding-left:50px">
+							<div class="tabbable">
+								<ul class="nav nav-tabs">
+								  <li class="active">
+								    <a href="#1" data-toggle="tab">状态信息</a>
+								  </li>
+								  <li><a href="#2" data-toggle="tab">配置列表</a></li>
+								</ul>
 						
-						<section id="content2">
-						  <iframe src="http://10.0.0.181" width="100%" height="400px"></iframe>
-						    
-						  </section> 
+							<br>
 						
-						<section id="content3">
-						  <iframe src="http://10.0.0.182" width="100%" height="400px"></iframe>
-						    
-						  </section> 
-						</main>
-										  
+							<div class="tab-content">
+								<div class="tab-pane  active" id="1">
+								<form id="edit-profile1" class="form-horizontal">
+									<fieldset>
+										<div class="control-group" style="margin-left:50px">											
+											
+											<label for="username">主机名</label>
+											
+											<span style="height:40px" id="hostname">asdad</span>
+												
+														
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group" style="margin-left:50px">											
+											
+											<label for="username">主机型号</label>
+											
+											<span style="height:40px" id="hostname_kind">asdad</span>
+												
+														
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group" style="margin-left:50px">											
+											
+											<label for="username">固件版本</label>
+											
+											<span style="height:40px" id="gujian">asdad</span>
+												
+														
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group" style="margin-left:50px">											
+											
+											<label for="username">内核版本</label>
+											
+											<span style="height:40px" id="neihe">asdad</span>
+												
+														
+										</div> <!-- /control-group -->
+										
+										<br>
+										
+											
+										<div class="form-actions">
+											<button type="submit" class="btn btn-primary">保存</button> 
+											<button class="btn">取消</button>
+										</div> <!-- /form-actions -->
+									</fieldset>
+								</form>
+								</div>
+								
+								<div class="tab-pane" id="2">
+									<form id="edit-profile2" class="form-horizontal">
+										<fieldset>
+											
+											
+											<div class="control-group" style="margin-left:50px">											
+											
+												<label for="username">上传地址</label>
+												
+												
+												<input type="text" id="upload_url" value=".." style="padding:10px" >
+												</input>
+															
+											</div> <!-- /control-group -->
+										
+											<div class="control-group" style="margin-left:50px">											
+												
+												<label for="username">上传间隔</label>
+												<!--
+												<span style="height:40px"  >asdad</span>
+												-->
+												<input type="text" id="upload_port" value=".." style="padding:10px" >
+												</input>
+															
+											</div> <!-- /control-group -->
+
+											
+											<br>
+											
+											<div class="form-actions">
+												<button type="submit" class="btn btn-primary">保存</button> <button class="btn">取消</button>
+											</div>
+										</fieldset>
+									</form>
+								</div>
+								
+							</div>
+							</div>
+							</div>
+						
 																		
 							</div> <!-- /widget-content -->
 							

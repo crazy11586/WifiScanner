@@ -9,6 +9,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import com.jsu.dao.IDeviceDaoImpl;
 import com.jsu.dao.IUserDaoImpl;
 import com.jsu.po.Device;
+import com.jsu.po.PositionInfo;
 import com.jsu.po.Users;
 import com.jsu.service.IDeviceService;
 import com.jsu.service.IUserService;
@@ -28,7 +29,12 @@ public class DeviceService implements IDeviceService{
 		// TODO Auto-generated method stub
 		return user_imple.getAllDevice();
 	}
-
+	
+	@Override
+	public List<PositionInfo> getAllPositionInfo(String mac) {
+		// TODO Auto-generated method stub
+		return user_imple.getAllPositionInfo(mac);
+	}
 
 	@Override
 	public List<Device> getDeviceFromId(int id) {

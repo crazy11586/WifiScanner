@@ -18,9 +18,10 @@
     
     
     <link href="./css/pages/plans.css" rel="stylesheet" /> 
-<script type="text/javascript" src="https://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
-<script src="https://cdn.hcharts.cn/highcharts/5.0.10/highcharts.js"></script>
-<script src="https://cdn.hcharts.cn/highcharts/5.0.10/modules/exporting.js"></script>
+    
+	<script type="text/javascript" src="https://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+	<script src="https://cdn.hcharts.cn/highcharts/5.0.10/highcharts.js"></script>
+	<script src="https://cdn.hcharts.cn/highcharts/5.0.10/modules/exporting.js"></script>
 
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -197,33 +198,24 @@
 
 					<ul id="main-nav" class="nav nav-tabs nav-stacked">
 
-						<li><a href="./"> <i class="icon-home"></i>
+						<li ><a href="./index.jsp"> <i class="icon-home"></i>
 								客流管理
 						</a></li>
 						
 						<li><a href="./OldAndNew.html"> <i class="icon-pushpin"></i>
 								新老顾客
 						</a></li>
- 
- 						<li><a href="./plans3.html"> <i class="icon-signal"></i>
+ 						<li><a href="./customerStay.html"> <i class="icon-signal"></i>
 								驻留分析
 						</a></li>
- 
-						<li  class="active"><a href="./plans.html"> <i class="icon-th-list"></i>
+						<li  class="active"><a href="./customerDirection.html"> <i class="icon-th-list"></i>
 								客流趋势
 						</a></li>
 
-						<li><a href="./grid.html"> <i class="icon-th-large"></i>
-								设备管理 <!-- 
-						<span class="label label-warning pull-right">5</span>
-						-->
+						<li> <a href="./deviceAdmin.html"> <i class="icon-th-large"></i>
+								设备管理
 						</a></li>
 
-						<!--  
-						<li><a href="./charts.html"> <i class="icon-signal"></i>
-								Charts
-						</a></li>
-						-->
 						<li><a href="./account.html"> <i class="icon-user"></i>
 								资料设置
 						</a></li>
@@ -255,7 +247,7 @@
 		
 		
 		function getStore(){
-			  var url_at = "http://10.0.0.35:8080/Test01/GetDataAction?action=getStore"; 
+			  var url_at = "http://47.94.104.25:8080/Test01/GetDataAction?action=getStore"; 
 		      //清空原有select内的数据
 		      $("#my_store_plans").empty();
 		      
@@ -299,12 +291,10 @@
 					<script type="text/javascript">
 					 $(function(){
 						 
-						  $(":radio").click(function(){
-						   		$("#week").toggle();
-						   		$("#day").toggle();			   		
-						   	
+						  $(":radio").click(function(){	   		
+						   		check();
 						  });
-						 
+						  check();
 					 });
 					 
 					
@@ -315,15 +305,22 @@
 				
 					<h4>日期筛选&nbsp;:</h4>
 					
-					<input id="day_radio" type="radio" name="pick_time" value="0"  style="margin-left : 30px">按周筛选</input>
-					<input id="week_radio" type="radio" name="pick_time" value="1" checked style="margin-left : 30px">按日筛选</input><br />
-					
-					 <input id="week"  style="display: none;margin-left:30px;margin-top:8px "type="week" value="2017-W18" min="2017-W18" max="2017-W26"/>	
+					<input id="day_radio" type="radio" name="pick_time" value="1" checked style="margin-left : 30px">按日筛选</input>
+					<input id="week_radio" type="radio" name="pick_time" value="0"  style="margin-left : 30px">按周筛选</input>
+					<input id="last_week_radio" type="radio" name="pick_time" value="2"  style="margin-left : 30px">过去七天</input>
+					<input id="last_month_radio" type="radio" name="pick_time" value="3"  style="margin-left : 30px">过去一个月</input>
+					<input id="custom_radio" type="radio" name="pick_time" value="4"  style="margin-left : 30px">自定义区域</input>
+					<br />
+					<input id="week"  style="display: none;margin-left:30px;margin-top:8px "type="week" value="2017-W24" min="2017-W24" max="2018-W24"/>	
 					<input id="day"
 								style=" margin-left: 30px; margin-top: 8px"
-								type="date" value="2017-06-15" min="2017-06-15" max="2017-06-15" />
-					
-					<input type="button" value="refresh" style="margin-left:10px;margin-top:8px" onclick="check()"/>
+								type="date" value="2017-06-15" min="2017-06-15" max="2018-06-15" />
+					<input id="custom_from"
+								style="display: none; margin-left: 30px; margin-top: 8px"
+								type="date" value="2017-06-15" min="2017-06-15" max="2018-06-15" />
+					<input id="custom_to"
+								style="display: none; margin-left: 30px; margin-top: 8px"
+								type="date" value="2017-06-15" min="2017-06-15" max="2018-06-15" />
 					
 					<hr />
 					
@@ -335,6 +332,9 @@
 					var time = 1507248000000;
 			        var chart;
 					$(document).ready(function() {
+
+						init();
+						check();
 						chart = Highcharts.chart('container', {
 						chart: {
 							type: 'spline'
@@ -349,7 +349,7 @@
 						},
 						exporting: {
 				            enabled:false
-				},
+						},
 						series: [{
 							name: "客流量"
 			
@@ -377,7 +377,7 @@
 						},
 						exporting: {
 				            enabled:false
-				},
+						},
 				        tooltip: {
 				            valueSuffix: ' 人次'
 				        },
@@ -484,98 +484,299 @@
 				}
 
 				function RefreshData(time1,time2){
+					
+					var i;
+					var categories = [] ;
+				    var count ;
+				    var type ;
+				    console.log("alltime "+(time2-time1));
+				    
+					if(time2-time1 > 86499999){
+						 count = 0 ;
+				    	 console.log('month');
+				    	 for( i= parseInt(time1); i <= parseInt(time2) ; i+=86400000){
+				    		 categories[count++] = i;
+					     }
+				    	 type = "month";
+				    	 console.log(categories);
+				     }else{
+				    	 console.log('day');
+				    	 
+				    	 i =parseInt(time1);
+				    	 count = 0 ;
+				    	 for( i= parseInt(time1) ; i <= parseInt(time2) ; i+=3600000){
+				    		 categories[count++] =i;
+				    	 }
+
+				    	 type = "day";
+				     }
+
+					
 					$.ajax({
-						url: 'http://10.0.0.35:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2,
+						url: 'http://47.94.104.25:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2,
 						type: 'POST',
 						cache: false,
-						success: function (data, textStatus) {
+						success: function (data1) {
 							var json = eval(data);
 							var data = [];
 							var data2 = [];
 							var cate = [];
-		                    if(json.length>24){
-		                        cate = [];
-		                        var sum_all = 0;
-		                        var sum_enter = 0;
-		                        for( var i = 0 ; i <json.length ; i ++  ){
-		                            sum_all+=json[i][0];
-		                            sum_enter+=json[i][1];
-		                            if( i!=0 && (i+1)%24== 0){
-		                                data.push([json[i][2],parseFloat(json[i][0])]);
-		                                data2.push([json[i][2],parseFloat(json[i][1])]);
-		                                cate.push(json[i][2]);
-		                            }
-		                       }
-		                    }else{
-		                        cate = [];
-		                        for( var i = 0 ; i <json.length ; i ++  ){
-		
-		                        	 data.push([json[i][2],parseFloat(json[i][0])]);
-		                             data2.push([json[i][2],parseFloat(json[i][1])]);
-		                            // if(i % 3  == 0)
-			                                cate.push(json[i][2]);
-			                       //     else
-			                       //         cate.push("..");
-		                            
-		                        }
+							
+							var size_all = [];
+							var size_enter= [];
+							var count ; 
+							
+							for( count = 0 ; count<categories.length ; count++){
+								size_all[count] = 0;
+								size_enter[count] = 0;
 							}
 							
+							console.log(data1);
+				            $.each(data1, function (index, item) {
+	                            
+				            	var id = count++; 
+				                var all = data1[index][0];	                	                  
+			                  	var enter = data1[index][1];		                  	  
+			                  	  
+			                  
+			                  	console.log(categories+"  0 "+categories.length-1+"  "+data1[index][2]);
+		                        var index2 = lowerBound(categories,0,categories.length-1,data1[index][2])-1;
+		                       	
+		                        size_all[index2] = size_all[index2]+parseFloat(all);
+		                        size_enter[index2] = size_enter[index2]+parseFloat(enter);
+		                   
+				            });
+							
+				            var index;
+				              
+			            	if(type == "day"){
+			              
+					           for( index = 0; index<categories.length ; index++){
+				                      
+					            	  categories[index] = ge_time_format2hour(categories[index]);
+				                     
+					           }
+					              
+			            	}else {
+			            		
+			            	
+			            		for( index = 0; index<categories.length ; index++){
+				                      
+					            	  categories[index] = ge_time_format(categories[index]);
+				                  
+					           }
+			            	}
+			              
+			            	
+			              
+			              for(count = 0 ; count < categories.length ; count ++){
+			            	  data.push([categories[count],size_all[count]]);
+		                      data2.push([categories[count],size_enter[count]]);
+			              }
+			            
+			            chart.xAxis[0].categories = categories;
 		                    
-		                    chart.xAxis[0].categories = [];
-							for(var j=0;j<cate.length;j++){
-							    if(cate[j] == ".."){
-							        chart.xAxis[0].categories.push(" ");
-							    }else{
-							    	if(json.length>24){
-							    		chart.xAxis[0].categories.push(ge_time_format(parseInt(cate[j])));
-							    	}else{
-							   		chart.xAxis[0].categories.push(ge_time_format2hour(parseInt(cate[j])));
-							    	}
-							    }
-							    	
-								
-							//	chart.xAxis[1].categories.push(ge_time_format(parseLong(cate[j])));
-							}
-							chart.series[0].setData(data);
-							chart.series[1].setData(data2);
-		                    chart.setTitle("asdads");
+						chart.series[0].setData(data);
+						chart.series[1].setData(data2);
+		                chart.setTitle("asdads");
 		                   // JSInterface.javaFunction('Length  '+chart.xAxis[0].categories[1]+" "+ chart.xAxis[0].categories.length);
-		                    chart.redraw();
+		                chart.redraw();
 		                   // JSInterface.javaFunction('Length  '+cate[0]+ ' '+ cate[10]);
 						}
-						});
-		            }
-				f1( '1497499200872' , '1497582000266' );
+					});
+		        }
+				
 					
-					function check(){
-						 if($('input:radio[id="day_radio"]:checked').val() == null){
+				$("#week").change(function(){
+					check();
+				});
+				
+				function lowerBound(datas, left , right , data){
+					
+					left = parseInt(left);
+					right = parseInt(right);
+					data = parseInt(data);
+					console.log(left+" "+right+" "+data);
+					
+					if(data > datas[right]) 
+						{
+							console.log("final"+(right+1));
+							return right+1;
+						}
+					while(left < right){
+						
+						var m  = left+(right-left)/2;
+						m = parseInt(m);
+						if(datas[m] >= data){
+							
+							right = m ;
+							
+						}else if(datas[m] < data){
+							
+							left = m +1;
+							
+						}
+						
+					}
+					
+					return left;
+					
+				}
+					 
+				$("#day").change(function(){
+					check();
+				});
+				$("#custom_from").change(function(){
+					resetday();
+				});
+				$("#custom_to").change(function(){
+					refresh();
+				});
+				
+				function getNowFormatDate() {
+				    var date = new Date();
+				    var seperator1 = "-";
+				    var month = date.getMonth() + 1;
+				    var strDate = date.getDate();
+				    if (month >= 1 && month <= 9) {
+				        month = "0" + month;
+				    }
+				    if (strDate >= 0 && strDate <= 9) {
+				        strDate = "0" + strDate;
+				    }
+				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+				      ;
+				    return currentdate;
+				}
+
+				function init(){
+					var str = getNowFormatDate();
+					
+					$("#day").attr("value",str);
+				 	//$("#week").attr("value",addDate(str));
+					$("#custom_from").attr("value",str);
+				 	$("#custom_to").attr("value",addDate(str));
+				 	//2017-W24
+				 	var str = getNowFormatDate();
+				 	var kk = str.split("-");
+				 	$("#week").attr("value",kk[0]+"-W"+getYearWeek(kk[0],kk[1],kk[2]));
+				}
+				
+				function check(){
+						if($('input:radio[id="day_radio"]:checked').val()){
+							$("#day").show();
+							$("#week").hide();
+							$("#custom_to").hide();
+							$("#custom_from").hide();
 							 var str = $("#day").val();
 							 str+=" 00:00:00"
 							 var timestamp2 = Date.parse(new Date(str));
 							// console.log(timestamp2+""+(timestamp2+1000*60*60*24-1));
 							 f1(timestamp2,(timestamp2+1000*60*60*24-1));
-							
-						 }else{
+							// alert('day');
+						 }else if($('input:radio[id="week_radio"]:checked').val()){
+							 	$("#day").hide();
+								$("#week").show();
+								$("#custom_to").hide();
+								$("#custom_from").hide();
 							 var str = $("#week").val();
 							 var str_year = str.substring(0,4);
 							 var str_week = str.substring(6,str.length);
-							 
 							 var timestamp = deal(str_year,str_week);
+							
 							 var timestamp2 = Date.parse(new Date(timestamp));
-							f1(timestamp2,(timestamp2+1000*60*60*24*6));
+							 console.log(timestamp2+"--"+(timestamp2+1000*60*60*24*6));
+							 f1(timestamp2,(timestamp2+1000*60*60*24*6));
+							// alert('week');
+						 }else if($('input:radio[id="last_week_radio"]:checked').val()){
+							 	$("#day").hide();
+								$("#week").hide();
+								$("#custom_to").hide();
+								$("#custom_from").hide();
+								
+								var str = getNowFormatDate();
+								 f1(Date.parse(new Date(addDate(str,-7))),Date.parse(new Date(str)));
+							// alert('last_week');
+						 }else if($('input:radio[id="last_month_radio"]:checked').val()){
+							// alert('last_month');
+							 $("#day").hide();
+							 $("#week").hide();
+							 $("#custom_to").hide();
+							 $("#custom_from").hide();
+
+							var str = getNowFormatDate();
+							f1(Date.parse(new Date(addDate(str,-30))),Date.parse(new Date(str)));
+							 
+						 }else if($('input:radio[id="custom_radio"]:checked').val()){
+						
+							 $("#day").hide();
+							 $("#week").hide();
+							 $("#custom_from").show();
+							 $("#custom_to").show();
+							 resetday();
 							 
 						 }
 					 }
+				function getYearWeek(a, b, c) {
+				    //date1是当前日期
+				    //date2是当年第一天
+				    //d是当前日期是今年第多少天
+				    //用d + 当前年的第一天的周差距的和在除以7就是本年第几周
+				    var date1 = new Date(a, parseInt(b) - 1, c), date2 = new Date(a, 0, 1),
+				        d = Math.round((date1.valueOf() - date2.valueOf()) / 86400000);
+				    return Math.ceil((d + ((date2.getDay() + 1) - 1)) / 7);
+				};
+				
+				function refresh(){
+					 var from = $("#custom_from").val()+" 00:00:00";
+					 var to = $("#custom_to").val()+" 00:00:00";
+					 var timestamp2 = Date.parse(new Date(from));
+					 var timestamp3 = Date.parse(new Date(to));
+					 f1(timestamp2,timestamp3-1);
+				}
+				
+				function resetday(){
+					var str = $("#custom_from").val();
+					 $("#custom_to").attr("min",addDate(str));
+					 $("#custom_to").attr("value",addDate(str));
+					 refresh();
+				}
+				// 日期，在原有日期基础上，增加days天数，默认增加1天
+		        function addDate(date, days) {
+		            if (days == undefined || days == '') {
+		                days = 1;
+		            }
+		            var date = new Date(date);
+		            date.setDate(date.getDate() + days);
+		            var month = date.getMonth() + 1;
+		            var day = date.getDate();
+		            return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day);
+		        }
+				
+
+		        // 日期月份/天的显示，如果是1位数，则在前面加上'0'
+		        function getFormatDate(arg) {
+		            if (arg == undefined || arg == '') {
+		                return '';
+		            }
+
+		            var re = arg + '';
+		            if (re.length < 2) {
+		                re = '0' + re;
+		            }
+
+		            return re;
+		        }
 					
 					function getCustomer(time1,time2){
-						//  var url_at = "http://10.0.0.35:1314/Test01/GetDataAction?action=getCustomerCount2time&time1="+time1+"&time2="+time2; 
+						//  var url_at = "http://47.94.104.25:1314/Test01/GetDataAction?action=getCustomerCount2time&time1="+time1+"&time2="+time2; 
 					      //清空原有select内的数据
 					      $("#customerbody").empty();
 					      
 					      
-					      var str = 'http://10.0.0.35:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2;
+					      var str = 'http://47.94.104.25:8080/Test01/GetDataAction?action=getall&time1='+time1+'&time2='+time2;
 					      $.ajax({ 
-					    	  //http://10.0.0.35:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
+					    	  //http://47.94.104.25:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
 					    	  url: str, 
 					          type:"post" , 
 					          dataType:"json",
@@ -592,11 +793,28 @@
 					                  
 					                  var enter = data[index][1];
 
+					                  if(enter =="0"){
+					                	//  console.log("enter null")
+					                  	  enter = 0;
+					                  }
+					                  
+					                  if(all =="0"){
+					                	//  console.log("all null")
+					                  	  all = 0;
+					                  }
+					                  
 					                  var number  ="<td style=\"width:40px;text-align:center\">"+id+"</td>";
 					                  var time = "<td style=\"text-align:center\">"+ge_time_format2all(time)+"</td>";
 					                  var AllCustomer = "<td style=\"text-align:center\">"+all+"</td>";
 					                  var enterCustomer = "<td style=\"text-align:center\">"+enter+"</td>";
-					                  var rate_temp =(enter/all*100)+""	; 
+					                  var rate_temp;
+					                  
+					                  if(all != 0){
+					                	  rate_temp=(enter/all*100)+"";
+					                  }else{
+					                	  rate_temp = "0";
+					                  }
+					                  
 					                  var rate = "<td style=\"text-align:center\">"+rate_temp.substring(0,5)+"% </td>";
 					                  var cl = "<td class=\"action-td\" style=\"text-align:center\"><a href=\"javascript:;\" class=\"btn btn-small btn-warning\"> <i class=\"icon-ok\"></i> </a> <a href=\"javascript:;\" class=\"btn btn-small\"> <i class=\"icon-remove\"></i></a></td>";
 					                  

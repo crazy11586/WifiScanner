@@ -62,14 +62,14 @@ public class Server {
 	private static String CurrentMac = "00-01-6C";
 	private static boolean flag;
 	static org.dom4j.Document document;
+	private static String urlPath;
 	private static LruCache<String,String> lrucache;
 	private static ArrayList<String> PC_MAC ;
-	private static String urlPath;
 	private static ArrayList<String> somedata;
 	
 	private static KafkaProducer kafkaProducer;
 	/***
-	 * ����
+	 * 锟斤拷锟斤拷
 	 * @param args
 	 * @throws Exception
 	 */
@@ -102,21 +102,21 @@ public class Server {
 	}
 
 	/**
-	 * ��ʼ��dom4j,��������xml�ļ�
+	 * 锟斤拷始锟斤拷dom4j,锟斤拷锟斤拷锟斤拷锟斤拷xml锟侥硷拷
 	 * @throws DocumentException
 	 * @throws SAXException 
 	 */
 	private static void InitReader() throws DocumentException, SAXException {
 		SAXReader saxReader = new SAXReader();
 		saxReader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-	//	String str = ServletActionContext.getServletContext().getRealPath("/");
+		String str = ServletActionContext.getServletContext().getRealPath("/");
 		document = saxReader.read(new File(urlPath));
 		root = document.getRootElement();
 		System.out.println("InitReader");
 	}
 
 	/**
-	 * ��ʼ��Socket�˿ڣ���������̽�봫�������
+	 * 锟斤拷始锟斤拷Socket锟剿口ｏ拷锟斤拷锟斤拷锟斤拷锟斤拷探锟诫传锟斤拷锟斤拷锟斤拷锟�
 	 * @throws DocumentException
 	 */
 	private static void InitDaq() throws IOException, UnsupportedEncodingException {
@@ -166,13 +166,13 @@ public class Server {
 	}
 	
 	/**
-	 * �����յ���JSON����תΪ������д洢
-	 * @param json�ַ���
+	 * 锟斤拷锟斤拷锟秸碉拷锟斤拷JSON锟斤拷锟斤拷转为锟斤拷锟斤拷锟斤拷写娲�
+	 * @param json锟街凤拷锟斤拷
 	 * @throws UnsupportedEncodingException
 	 */
 	public static void Change2WifiDate(String jsonstr) throws UnsupportedEncodingException {
 		
-		JsonParser parse = new JsonParser(); // ����json������
+		JsonParser parse = new JsonParser(); // 锟斤拷锟斤拷json锟斤拷锟斤拷锟斤拷
 		
 		ArrayList<WifiData> alldata = new ArrayList<>();
 		
@@ -194,7 +194,7 @@ public class Server {
 
 		JsonArray array = json.get("data").getAsJsonArray();
 		
-		//�����ɼ���������
+		//锟斤拷锟斤拷锟缴硷拷锟斤拷锟斤拷锟斤拷锟斤拷
 		for (int i = 0; i < array.size(); i++) {
 
 			WifiData wifiData = new WifiData();
@@ -219,7 +219,7 @@ public class Server {
 			
 			flag = false;
 			
-			//����ڻ���������ڣ�ֱ��ȡ��
+			//锟斤拷锟斤拷诨锟斤拷锟斤拷锟斤拷锟斤拷锟节ｏ拷直锟斤拷取锟斤拷
 			
 			if(lrucache.contains(CurrentMac)){
 				
@@ -229,7 +229,7 @@ public class Server {
 			
 			}else{
 				
-				//�ж��Ƿ���Xml�ļ�����
+				//锟叫讹拷锟角凤拷锟斤拷Xml锟侥硷拷锟斤拷锟斤拷
 				
 				for (Iterator iter = root.elementIterator(); iter.hasNext();)
 					
@@ -244,7 +244,7 @@ public class Server {
 	
 		        }
 				
-				//�������ϻ�ȡ
+				//锟斤拷锟斤拷锟斤拷锟较伙拷取
 				if(!flag){
 					
 					String url = "http://www.imfirewall.com/ip-mac-lookup/get_mac_info.php?mac="+wifiData.getMac();
@@ -259,7 +259,7 @@ public class Server {
 						Element_son_value = Element_father.addElement("value");
 						Element_son_key.setText(CurrentMac);
 						/**
-						 * д��xml�Լ�lru
+						 * 写锟斤拷xml锟皆硷拷lru
 						 */
 					    if("true".equals(jsonoj.get("success").toString())){
 					    	String tempstr = ((JSONObject) jsonoj.get("result")).get("mac_producer").toString();
@@ -289,25 +289,25 @@ public class Server {
 		}
 		
 		/**
-		 * �������������д��xml��
+		 * 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟叫达拷锟絰ml锟斤拷
 		 */
 	    try { 
 	        	FileOutputStream out = new FileOutputStream(urlPath);
-		        //OutputFormat format = OutputFormat.createCompactFormat();//���������ļ������ֽ����ʺϵ���
-		        OutputFormat format = OutputFormat.createPrettyPrint();//��׼�����֣��ʺϲ鿴ʱ��ʾ��
-		        //1.����д���ļ�
-		        format.setEncoding("utf-8");//ָ���ļ���ʽ 
+		        //OutputFormat format = OutputFormat.createCompactFormat();//锟斤拷锟斤拷锟斤拷锟斤拷锟侥硷拷锟斤拷锟斤拷锟街斤拷锟斤拷锟绞合碉拷锟斤拷
+		        OutputFormat format = OutputFormat.createPrettyPrint();//锟斤拷准锟斤拷锟斤拷锟街ｏ拷锟绞合查看时锟斤拷示锟斤拷
+		        //1.锟斤拷锟斤拷写锟斤拷锟侥硷拷
+		        format.setEncoding("utf-8");//指锟斤拷锟侥硷拷锟斤拷式 
 		        XMLWriter writer = new XMLWriter(out,format);
 				writer.write(document);
 		        writer.close();
 		} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-		}//д���ļ�
+		}//写锟斤拷锟侥硷拷
 	        
 		wifi.setData(alldata);
 		
-		//������
+		//锟斤拷锟斤拷锟斤拷
 		for (WifiData Element : alldata) {
 			
 			if ("-1".equals(Element.getTs())) {
@@ -327,8 +327,8 @@ public class Server {
 	}
 	
 	/**
-	 * ͨ��http��url��ַ��ת��ΪJSON����
-	 * @param url��ַ
+	 * 通锟斤拷http锟斤拷url锟斤拷址锟斤拷转锟斤拷为JSON锟斤拷锟斤拷
+	 * @param url锟斤拷址
 	 * @return
 	 * @throws IOException
 	 * @throws JSONException
@@ -356,7 +356,7 @@ public class Server {
 	  }
 	
 	/**
-	 * ��ȡhttp����ֵ
+	 * 锟斤拷取http锟斤拷锟斤拷值
 	 * @param rd
 	 * @return
 	 * @throws IOException

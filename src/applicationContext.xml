@@ -22,11 +22,14 @@
 		<property name="url" value="jdbc:mysql://10.0.0.172:3306/scanner?connectTimeout=60000" />
 		<property name="username" value="root"></property>
 		<property name="password" value="199729"></property> 
-           -->
-        <property name="url" value="jdbc:mysql://localhost:3306/scanner" />
+          
+        <property name="url" value="jdbc:mysql://123.206.201.99:3306/scanner" />
 		<property name="username" value="root"></property>
-		<property name="password" value="763893636"></property> 
-    
+		<property name="password" value="123456"></property> 
+     -->
+    	<property name="url" value="jdbc:mysql://123.206.201.99:3306/wifi" />
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property> 
          <!--
          <property name="url" value="jdbc:mysql://localhost:3306/scanner" />
 		<property name="username" value="root"></property>

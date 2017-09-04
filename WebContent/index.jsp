@@ -144,9 +144,8 @@ ul#nav li a:hover {
 						<div class="account-details">
 
 							<span class="account-name">Crazy11586</span> <span
-								class="account-role">管理员</span> <span
-								class="account-actions"> <a href="javascript:;">切换用户</a>
-								| <a href="javascript:;">资料设置</a>
+								class="account-role">管理员</span> <span class="account-actions">
+								<a href="javascript:;">切换用户</a> | <a href="javascript:;">资料设置</a>
 							</span>
 
 						</div>
@@ -159,39 +158,29 @@ ul#nav li a:hover {
 
 					<ul id="main-nav" class="nav nav-tabs nav-stacked">
 
-						<li class="active"><a href="./"> <i class="icon-home"></i>
-								客流管理
+						<li class="active"><a href="./index.jsp"> <i
+								class="icon-home"></i> 客流管理
 						</a></li>
-						
+
 						<li><a href="./OldAndNew.html"> <i class="icon-pushpin"></i>
 								新老顾客
 						</a></li>
- 
- 						<li><a href="./plans3.html"> <i class="icon-signal"></i>
+						<li><a href="./customerStay.html"> <i class="icon-signal"></i>
 								驻留分析
 						</a></li>
- 
-						<li><a href="./plans.html"> <i class="icon-th-list"></i>
-								客流趋势
+						<li><a href="./customerDirection.html"> <i
+								class="icon-th-list"></i> 客流趋势
 						</a></li>
 
-						<li><a href="./grid.html"> <i class="icon-th-large"></i>
-								设备管理 <!-- 
-						<span class="label label-warning pull-right">5</span>
-						-->
+						<li><a href="./deviceAdmin.html"> <i
+								class="icon-th-large"></i> 设备管理
 						</a></li>
 
-						<!--  
-						<li><a href="./charts.html"> <i class="icon-signal"></i>
-								Charts
-						</a></li>
-						-->
 						<li><a href="./account.html"> <i class="icon-user"></i>
 								资料设置
 						</a></li>
 
-						<li><a href="./login.html"> <i class="icon-lock"></i>
-								切换
+						<li><a href="./login.html"> <i class="icon-lock"></i> 切换
 						</a></li>
 
 					</ul>
@@ -237,7 +226,7 @@ ul#nav li a:hover {
 						</div>
 						<!-- /stat-holder -->
 
-						<div class="stat-holder" style="display:none">
+						<div class="stat-holder" style="display: none">
 							<div class="stat">
 								<span>2</span> 平均驻店时长
 							</div>
@@ -256,9 +245,7 @@ ul#nav li a:hover {
 							<select id="my_store" class="cs-select cs-skin-rotate"
 								style="margin: auto 0">
 
-							</select>
-
-							<input type="button" id="time" style="margin: auto 0 auto 20px;"/> 
+							</select> <input type="button" id="time" style="margin: auto 0 auto 20px;" />
 
 						</div>
 						<!-- /widget-header -->
@@ -293,18 +280,19 @@ ul#nav li a:hover {
 							data = new Date(t);
 							var timestamp = Date.parse(data);
 								return timestamp; 
-							}
+						}
 						
 						
 						
-							function getStore() {
-								var url_at = "http://10.0.0.35:8080/Test01/GetDataAction?action=getStore";
+						function getStore() {
+								var url_at = "http://47.94.104.25:8080/Test01/GetDataAction?action=getStore";
 								//清空原有select内的数据
 								$("#my_store").empty();
 								$("#mybody").empty();
+								
 								$.ajax({
-											url : url_at,
-											type : "post",
+										url : url_at,
+										type : "post",
 											dataType : "json",
 											success : function(data) {
 												//  $("#my_store").append("<option value='-1'>--请选择需要展示的店铺--</option>");	           
@@ -368,17 +356,22 @@ ul#nav li a:hover {
 													title : {
 														text : '顾客实时分布图(平面)'
 													},
-													series : [ {} ],
+													series : [],
 													yAxis : {
-														gridLineWidth : 0,
-														tickWidth : 0
+														gridLineWidth : 0 ,
+														tickWidth : 0 
 													},
 													xAxis : {
 														gridLineWidth : 0,
 														tickWidth : 0
+												    
 													},
 													legend : {
-														layout : 'vertical',
+														labelFormatter: function() {
+										                        return this.name;
+										                },
+											
+														layout : 'horizontal',
 														align : 'left',
 														verticalAlign : 'top',
 														x : 80,
@@ -393,31 +386,8 @@ ul#nav li a:hover {
 												},
 												exporting: {
 										            enabled:false
-												},
-													plotOptions : {
-														scatter : {
-															marker : {
-																radius : 5,
-																states : {
-																	hover : {
-																		enabled : true,
-																		lineColor : 'rgb(100,100,100)'
-																	}
-																}
-															},
-															states : {
-																hover : {
-																	marker : {
-																		enabled : false
-																	}
-																}
-															},
-															tooltip : {
-																headerFormat : '<b>{series.name}</b><br>',
-																pointFormat : 'x = {point.x} ,y = {point.y}'
-															}
-														}
-													}
+												}
+													
 												});
 								
 								getStore();
@@ -436,37 +406,197 @@ ul#nav li a:hover {
 										}
 									}
 								}
+								
+								var servies_data;
+								var servies_tzdata;
 						
 								function RefreshData(time1 , time2) {
-									//RefreshData("1497408360562","1497409680564");
+									getCustomer();
 									$.ajax({
-												url : 'http://10.0.0.35:8080/Test01/GetDataAction?action=getCustomerPositiontime&time1 = '+time1+'&time2 = '+time2,
+												url : 'http://47.94.104.25:8080/Test01/GetDataAction?action=getCustomerPositiontime',
 												type : 'POST',
 												cache : false,
 												success : function(data,
 														textStatus) {
+													
+													console.log("data"+data);
 													var json = eval(data);
-													chart.series[0].remove();
-													chart.addSeries("man");
+													
+													if(servies_data != null){
+														servies_data.remove();
+													}
+													if(servies_tzdata != null){
+														servies_tzdata.remove();
+													}
+													
+													var plotOptions = {
+														scatter : {
+															marker : {
+																radius : 15 ,
+																states : {
+																	hover : {
+																		enabled : true,
+																		lineColor : 'rgb(100,100,100)'
+																	}
+																}
+															},
+															states : {
+																hover : {
+																	marker : {
+																		enabled : false
+																	}
+																}
+															},
+															tooltip : {
+																headerFormat : '<b>用户位置</b>',
+																pointFormat : 'x = {point.x} , y = {point.y}'
+															}
+														}
+													};
+													
+													var tzplotOptions = {
+															scatter : {
+																marker : {
+																	radius : 15 ,
+																	states : {
+																		hover : {
+																			enabled : true,
+																			lineColor : 'rgb(100,100,100)'
+																		}
+																	}
+																},
+																states : {
+																	hover : {
+																		marker : {
+																			enabled : false
+																		}
+																	}
+																},
+																tooltip : {
+																	headerFormat : '<b>探针设备</b>',
+																	pointFormat : 'x = {point.mac} , y = {point.y}'
+																}
+															}
+														};
+													
+													servies_data = chart.addSeries(plotOptions,true);
+													servies_tzdata = chart.addSeries(tzplotOptions,true);
+													
 													var x;
 													var y;
 													var data = [];
+													var tzdata = [];
+													var mac;
+													
+													var bq_168_mac="20:f4:1b:7d:b0:3a";
+													var bq_168_x = 0;
+													var bq_168_y = 0;
+													
+													var bq_181_mac="e0:b9:4d:f9:8e:5a";
+													var bq_181_x = 0;
+													var bq_181_y = 0;
+													
+													var bq_182_mac="e0:b9:4d:f9:8e:3c";
+													var bq_182_x = 0;
+													var bq_182_y = 0;
+													
+													var min_x;
+													var min_y;
+													
+													var max_x;
+													var max_y;
+													
 													for (var i = 0; i < json.length; i++) {
+														
+														mac  = json[i].customer_mac;
 														x = json[i].position_x;
 														y = json[i].position_y;
 														
-														if(parseFloat(x) > -3 && parseFloat(x) < 2)
-														data.push([ parseFloat(x), parseFloat(y) ]);
+														
+														
+														if(mac == bq_168_mac){
+															bq_168_x = x;
+															bq_168_y = y;
+															tzdata.push([ parseFloat(x), parseFloat(y)]);
+															console.log("TZ"+parseFloat(x),parseFloat(x));
+														}else if(mac == bq_181_mac){
+															bq_181_x = x;
+															bq_181_y = y;
+															tzdata.push([ parseFloat(x), parseFloat(y)]);
+															console.log("TZ"+parseFloat(x),parseFloat(y));
+														}else if(mac == bq_182_mac){
+															bq_182_x = x;
+															bq_182_y = y;
+															tzdata.push([ parseFloat(x), parseFloat(y)]);
+															console.log("TZ"+parseFloat(x),parseFloat(y));
+														}else{
+															data.push([ parseFloat(x), parseFloat(y)]);
+														}
+														
+														
 													}
-													chart.series[0]
-															.setData(data);
-													;
+
+													console.log(bq_168_x+"-168-"+bq_168_y);
+													console.log(bq_181_x+"-181-"+bq_181_y);
+													console.log(bq_182_x+"-182-"+bq_182_y);
+													
+													min_x = getmin(bq_168_x,bq_181_x,bq_182_x);
+													max_x = getmax(bq_168_x,bq_181_x,bq_182_x);
+													
+													min_y = getmin(bq_168_y,bq_181_y,bq_182_y);
+													max_y = getmax(bq_168_y,bq_181_y,bq_182_y);
+												
+													/*
+									
+													for (var i = 0; i < json.length; i++) {
+														
+														x = json[i].position_x;
+														y = json[i].position_y;
+														
+														//if(parseFloat(x) > min_x && parseFloat(x) < max_x
+														//	&&parseFloat(y) > min_y && parseFloat(y) < max_y){
+															
+															data.push([ parseFloat(x), parseFloat(y)]);
+														//	console.log(parseFloat(x),parseFloat(x));
+															
+														//}
+
+													}
+													*/
+													
+													servies_data.setData(data);
+													servies_tzdata.setData(tzdata);
+													
+													servies_data.name = "用户";
+													servies_tzdata.name = "探针";
+													
+													chart.redraw();
 												}
 											});
 
 								}
 								
-								var countdown = 30;
+								var countdown = 120;
+								function getmax(No1 , No2 , No3){
+									
+									if (No1 > No2 && No1 > No3)
+										   return No1;
+									 if (No2 > No1 && No2 > No3)
+										 	return No2;
+								     if (No3 > No1 && No3 > No2)
+								    	 	return No3;
+								     
+								}
+								
+								function getmin(No1 , No2 , No3){
+								
+								     if (No1 < No2 && No1 < No3)
+								    	 	return No1;
+								     if (No2 < No1 && No2 < No3)
+								    	 	return No2;
+									 if (No3 < No1 && No3 < No2)
+										 	return No3;
+								}
 								
 								function settime() {
 									
@@ -475,7 +605,7 @@ ul#nav li a:hover {
 									//	val.removeAttribute("disabled");
 										val.val("正在刷新数据") ;
 										RefreshData("1497409560564","1497410960564");
-										countdown = 30;
+										countdown = 120;
 									} else {
 									//	val.setAttribute("disabled", true);
 										val.val("剩余自动刷新时间  : "+countdown + " S ");
@@ -488,23 +618,33 @@ ul#nav li a:hover {
 								}
 								
 							});
-							 
-							 
-
+							
 							function toJson(str) {
 								var json = (new Function("return " + str))();
 								return json;
 							}
 							
 							function GetSumData(){
+								
+								//当日0点的时间
+
+								var dateStr = new Date(new Date().setHours(0, 0, 0, 0))/1000 ;
+								//var timestamp0 = strtotime($dateStr);
+
+								//当日24点的时间
+
+								var timestamp24 = dateStr*1000 + 86400000;  
+								
+							
 								//客流量 + 新顾客数量 + 老顾客数量
-								var str = get_time();
+							//	var str = get_time();
 								//获取当前天数的
-								time1 = "1497499200872";
-							    time2 = "1497582000266";
-							      var str = 'http://10.0.0.35:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
+								time1 = dateStr*1000;
+							    time2 = timestamp24;
+							      var str = 'http://47.94.104.25:8080/Test01/GetDataAction?action=getCustomerCount2time&time1='+time1+'&time2='+time2;
+							      console.log(str);
 							      $.ajax({ 
-							    	  //http://10.0.0.35:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
+							    	  //http://47.94.104.25:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
 							    	  url: str, 
 							          type:"post" , 
 							          dataType:"json",
@@ -535,12 +675,63 @@ ul#nav li a:hover {
 							           alert(errorThrown);
 							         }
 							      });   
-								
-								
-								
+											
 							}
 							
 							GetSumData();
+							
+							function getCustomer(){
+								//  var url_at = "http://47.94.104.25:1314/Test01/GetDataAction?action=getCustomerCount2time&time1="+time1+"&time2="+time2; 
+							      //清空原有select内的数据
+							      $("#customerbody").empty();
+							      
+							      var str = 'http://47.94.104.25:8080/Test01/GetDataAction?action=getflim';
+							      $.ajax({ 
+							    	  //http://47.94.104.25:1314/Test01/GetDataAction?action=getall&time1=1496804400000&time2=1496807999000
+							    	  url: str, 
+							          type:"post" , 
+							          dataType:"json",
+							          success:function(data){
+							        	  
+							              var count = 1;
+							              
+							              var flim;
+							              var mac;
+							              var position_x;
+							              var position_y;
+							              var time;
+							              
+							              $.each(data, function (index, item) {
+							                  var id = count++; 
+							                  
+							                  flim = data[index].flim;
+							                  mac = data[index].mac;
+							                  position_x = data[index].position_x;
+							                  position_y = data[index].position_y;
+							                  time = data[index].time;
+							                  
+							                  var number  ="<td style=\"width:40px;text-align:center\">"+id+"</td>";
+							                  var time2 = "<td style=\"text-align:center\">"+mac+"</td>";
+							                  var AllCustomer = "<td style=\"text-align:center\">"+flim+"</td>";
+							                  var enterCustomer = "<td style=\"text-align:center\">"+position_x+"</td>";
+							                  
+							                  var rate = "<td style=\"text-align:center\">"+position_y+" </td>";
+
+							                  var times = "<td style=\"text-align:center\">"+time+" S </td>";
+							                  var cl = "<td class=\"action-td\" style=\"text-align:center\"><a href=\"javascript:;\" class=\"btn btn-small btn-warning\"> <i class=\"icon-ok\"></i> </a> <a href=\"javascript:;\" class=\"btn btn-small\"> <i class=\"icon-remove\"></i></a></td>";
+							                  
+							                  var html = "<tr>"+number+""+time2+""+
+							                  AllCustomer+""+enterCustomer+""+rate+""+times+"</tr>";
+							                  
+							                  $("#customerbody").append(html);
+					           
+							              }); 
+							          }, 
+							      error:function(XMLHttpRequest,textStatus, errorThrown) { 
+							           alert(errorThrown);
+							         }
+							      });   
+							}
 							
 						</script>
 
@@ -548,8 +739,36 @@ ul#nav li a:hover {
 					<!-- /widget -->
 
 
+<div class="widget widget-table">
+					
+					<div class="widget-header">
+						<h3>数据详情</h3>
+					</div> <!-- /widget-header -->
+														
+					<div class="widget-content">
+					<table class="table table-striped table-bordered" >
+								<thead>
+									<tr>
+										<th style="width:40px; text-align:center">#</th>
+										<th style="text-align:center">mac地址</th>
+										<th style="text-align:center">手机厂商</th>
+										<th style="text-align:center">X坐标</th>
+										<th style="text-align:center">Y坐标</th>
+										<th style="text-align:center">累计时长</th>
+										<th>&nbsp;</th>
+									</tr>
+								</thead>
 
-<!-- 
+								<tbody id="customerbody">
+								
+								
+								</tbody>
+							</table>
+					</div> <!-- /widget-content -->
+					
+				</div> <!-- /widget -->
+
+					<!-- 
 					<div class="widget widget-table">
 
 
@@ -610,9 +829,6 @@ ul#nav li a:hover {
 
 	</div>
 	<!-- /footer -->
-
-
-
 
 	<!-- Le javascript
 ================================================== -->

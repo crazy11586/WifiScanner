@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.jsu.po.Device;
+import com.jsu.po.PositionInfo;
 import com.jsu.po.Users;
 
 public interface IDeviceService {
@@ -20,4 +21,6 @@ public interface IDeviceService {
 	public List<Device> getAllDevice();
 
 	public List<Device> getDeviceFromId(int id );
+
+	List<PositionInfo> getAllPositionInfo(String mac);
 }
